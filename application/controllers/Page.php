@@ -15,6 +15,32 @@ class Page extends MY_Controller {
         $this->render_backend('dashboard', $data); 
     }
 
+    public function company(){
+        $data['curr_page'] = "company";
+
+        $this->load->library('grocery_CRUD');
+        $crud = new grocery_CRUD();
+        $crud->set_table('company');
+        $crud->set_theme('tablestrap4');
+        $output = $crud->render();
+        $data['crud'] = get_object_vars($output);
+
+        $this->render_backend('crud_view', $data);  
+    }
+
+    public function cusreqsize(){
+        $data['curr_page'] = "cusreqsize";
+
+        $this->load->library('grocery_CRUD');
+        $crud = new grocery_CRUD();
+        $crud->set_table('cusreqsize');
+        $crud->set_theme('tablestrap4');
+        $output = $crud->render();
+        $data['crud'] = get_object_vars($output);
+
+        $this->render_backend('crud_view', $data);  
+    }
+
     public function lesson(){
 
         $data['curr_page'] = "lesson";

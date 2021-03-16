@@ -59,14 +59,14 @@
 
     <!-- Nav Item Company -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="<?php echo base_url('index.php/page/company'); ?>">
             <i class="fas fa-fw fa-building"></i>
             <span>Perusahaan</span></a>
     </li>
 
     <!-- Nav Item CusReqSize -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="<?php echo base_url('index.php/page/cusreqsize'); ?>">
             <i class="fas fa-fw fa-ruler-triangle"></i>
             <span>Pengukuran</span></a>
     </li>
@@ -89,7 +89,7 @@
     <li class="nav-item">
         <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-shopping-basket"></i>
-            <span>Purchase Order</span></a>
+            <span>Pesanan Pembelian</span></a>
     </li>
 
     <!-- Nav Item Delivery Order -->
