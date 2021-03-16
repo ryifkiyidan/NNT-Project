@@ -32,9 +32,9 @@
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('index.php/page/dashboard');?>">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+            <i class="fas fa-cut"></i>
         </div>
         <div class="sidebar-brand-text mx-3">NNT ADMIN</div>
     </a>
@@ -43,8 +43,8 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="<?php echo base_url('index.php/page/dashboard'); ?>">
+    <li class="nav-item" id="nav-dashboard">
+        <a class="nav-link" href="<?= base_url('index.php/page/dashboard');?>">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -58,42 +58,42 @@
     </div>
 
     <!-- Nav Item Company -->
-    <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('index.php/page/company'); ?>">
+    <li class="nav-item" id="nav-company">
+        <a class="nav-link" href="<?= base_url('index.php/page/company');?>">
             <i class="fas fa-fw fa-building"></i>
             <span>Perusahaan</span></a>
     </li>
 
     <!-- Nav Item CusReqSize -->
-    <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url('index.php/page/cusreqsize'); ?>">
+    <li class="nav-item" id="nav-cusreqsize">
+        <a class="nav-link" href="<?= base_url('index.php/page/cusreqsize');?>">
             <i class="fas fa-fw fa-ruler-triangle"></i>
             <span>Pengukuran</span></a>
     </li>
 
     <!-- Nav Item Product -->
-    <li class="nav-item">
+    <li class="nav-item" id="nav-product">
         <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-tshirt"></i>
             <span>Produk</span></a>
     </li>
 
     <!-- Nav Item Fabric -->
-    <li class="nav-item">
+    <li class="nav-item" id="nav-fabric">
         <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-fw fa-scroll"></i>
             <span>Bahan Kain</span></a>
     </li>
 
     <!-- Nav Item PurchaseOrder -->
-    <li class="nav-item">
+    <li class="nav-item" id="nav-purchaseorder">
         <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-shopping-basket"></i>
             <span>Pesanan Pembelian</span></a>
     </li>
 
     <!-- Nav Item Delivery Order -->
-    <li class="nav-item">
+    <li class="nav-item" id="nav-deliveryorder">
         <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-truck"></i>
             <span>Surat Jalan</span></a>
