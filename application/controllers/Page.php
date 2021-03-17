@@ -34,6 +34,9 @@ class Page extends MY_Controller {
         $this->load->library('grocery_CRUD');
         $crud = new grocery_CRUD();
         $crud->set_table('cusreqsize');
+        $crud->display_as('ID_Company', 'Company Name');
+        $crud->set_subject('Custom Size');
+        $crud->set_relation('ID_Company','company','Name');
         $crud->set_theme('tablestrap4');
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
@@ -74,6 +77,9 @@ class Page extends MY_Controller {
         $crud = new grocery_CRUD();
         $crud->set_table('purchaseorder');
         $crud->set_theme('tablestrap4');
+        $crud->display_as('ID_Company', 'Company Name');
+        $crud->set_subject('Purchase Order');
+        $crud->set_relation('ID_Company','company','Name');
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
 
@@ -87,6 +93,8 @@ class Page extends MY_Controller {
         $crud = new grocery_CRUD();
         $crud->set_table('deliveryorder');
         $crud->set_theme('tablestrap4');
+        $crud->set_subject('Delivery Order');
+        $crud->set_relation('PO_Number','purchaseorder','PO_Number');
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
 
