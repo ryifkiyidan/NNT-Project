@@ -73,28 +73,28 @@
 
     <!-- Nav Item Product -->
     <li class="nav-item" id="nav-product">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="<?= base_url('index.php/page/product');?>">
             <i class="fas fa-fw fa-tshirt"></i>
             <span>Produk</span></a>
     </li>
 
     <!-- Nav Item Fabric -->
     <li class="nav-item" id="nav-fabric">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="<?= base_url('index.php/page/fabric');?>">
             <i class="fas fa-fw fa-scroll"></i>
             <span>Bahan Kain</span></a>
     </li>
 
     <!-- Nav Item PurchaseOrder -->
     <li class="nav-item" id="nav-purchaseorder">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="<?= base_url('index.php/page/purchaseorder');?>">
             <i class="fas fa-fw fa-shopping-basket"></i>
             <span>Pesanan Pembelian</span></a>
     </li>
 
     <!-- Nav Item Delivery Order -->
     <li class="nav-item" id="nav-deliveryorder">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="<?= base_url('index.php/page/deliveryorder');?>">
             <i class="fas fa-fw fa-truck"></i>
             <span>Surat Jalan</span></a>
     </li>
