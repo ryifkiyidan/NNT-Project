@@ -22,6 +22,7 @@ class Page extends MY_Controller {
         $crud = new grocery_CRUD();
         $crud->set_table('company');
         $crud->set_theme('tablestrap4');
+        $crud->set_subject('Company');
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
 
@@ -51,6 +52,7 @@ class Page extends MY_Controller {
         $crud = new grocery_CRUD();
         $crud->set_table('fabric');
         $crud->set_theme('tablestrap4');
+        $crud->set_subject('Fabric');
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
 
@@ -64,6 +66,11 @@ class Page extends MY_Controller {
         $crud = new grocery_CRUD();
         $crud->set_table('product');
         $crud->set_theme('tablestrap4');
+        $crud->set_subject('Product');
+        $crud->display_as('ID_Company', 'CompanyName');
+        $crud->display_as('ID_Fabric', 'FabricName');
+        $crud->set_relation('ID_Company','company', 'name');
+        $crud->set_relation('ID_Fabric', 'fabric', 'name');
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
 
