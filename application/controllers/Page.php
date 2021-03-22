@@ -1,10 +1,12 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-class Page extends MY_Controller {
+defined('BASEPATH') or exit('No direct script access allowed');
+class Page extends MY_Controller
+{
 
-    public function dashboard(){
+    public function dashboard()
+    {
         $data['curr_page'] = "dashboard";
-        
+
         $this->load->library('grocery_CRUD');
         $crud = new grocery_CRUD();
         $crud->set_table('company');
@@ -12,10 +14,11 @@ class Page extends MY_Controller {
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
 
-        $this->render_backend('dashboard', $data); 
+        $this->render_backend('dashboard', $data);
     }
 
-    public function company(){
+    public function company()
+    {
         $data['curr_page'] = "company";
 
         $this->load->library('grocery_CRUD');
@@ -26,10 +29,11 @@ class Page extends MY_Controller {
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
 
-        $this->render_backend('crud_view', $data);  
+        $this->render_backend('crud_view', $data);
     }
 
-    public function cusreqsize(){
+    public function cusreqsize()
+    {
         $data['curr_page'] = "cusreqsize";
 
         $this->load->library('grocery_CRUD');
@@ -37,15 +41,16 @@ class Page extends MY_Controller {
         $crud->set_table('cusreqsize');
         $crud->display_as('ID_Company', 'Company Name');
         $crud->set_subject('Custom Size');
-        $crud->set_relation('ID_Company','company','Name');
+        $crud->set_relation('ID_Company', 'company', 'Name');
         $crud->set_theme('tablestrap4');
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
 
-        $this->render_backend('crud_view', $data);  
+        $this->render_backend('crud_view', $data);
     }
 
-    public function fabric(){
+    public function fabric()
+    {
         $data['curr_page'] = "fabric";
 
         $this->load->library('grocery_CRUD');
@@ -59,7 +64,8 @@ class Page extends MY_Controller {
         $this->render_backend('crud_view', $data);
     }
 
-    public function product(){
+    public function product()
+    {
         $data['curr_page'] = "product";
 
         $this->load->library('grocery_CRUD');
@@ -69,31 +75,60 @@ class Page extends MY_Controller {
         $crud->set_subject('Product');
         $crud->display_as('ID_Company', 'CompanyName');
         $crud->display_as('ID_Fabric', 'FabricName');
-        $crud->set_relation('ID_Company','company', 'name');
+        $crud->set_relation('ID_Company', 'company', 'name');
         $crud->set_relation('ID_Fabric', 'fabric', 'name');
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
 
         $this->render_backend('crud_view', $data);
     }
-    
-    public function purchaseorder(){
+
+    public function purchaseorder()
+    {
         $data['curr_page'] = "purchaseorder";
 
         $this->load->library('grocery_CRUD');
         $crud = new grocery_CRUD();
+
+        $state = $crud->getState();
+        $stateInfo = $crud->getStateInfo();
+        if ($state === 'read') {
+            redirect('page/podetail/' . $stateInfo->primary_key);
+        }
+
         $crud->set_table('purchaseorder');
         $crud->set_theme('tablestrap4');
         $crud->display_as('ID_Company', 'Company Name');
         $crud->set_subject('Purchase Order');
-        $crud->set_relation('ID_Company','company','Name');
+        $crud->set_relation('ID_Company', 'company', 'Name');
+
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
 
         $this->render_backend('crud_view', $data);
     }
 
-    public function deliveryorder(){
+    public function podetail($id)
+    {
+        $data['curr_page'] = "purchaseorder";
+
+        $this->load->library('grocery_CRUD');
+        $crud = new grocery_CRUD();
+        $crud->where('PO_Number', $id);
+        $crud->set_table('orderdetail');
+        $crud->set_theme('tablestrap4');
+        $crud->set_subject('Order Detail');
+        $crud->display_as('ID_Product', 'Product Name');
+        $crud->set_relation('ID_Product', 'product', 'Name');
+
+        $output = $crud->render();
+        $data['crud'] = get_object_vars($output);
+
+        $this->render_backend('crud_view', $data);
+    }
+
+    public function deliveryorder()
+    {
         $data['curr_page'] = "product";
 
         $this->load->library('grocery_CRUD');
@@ -101,7 +136,7 @@ class Page extends MY_Controller {
         $crud->set_table('deliveryorder');
         $crud->set_theme('tablestrap4');
         $crud->set_subject('Delivery Order');
-        $crud->set_relation('PO_Number','purchaseorder','PO_Number');
+        $crud->set_relation('PO_Number', 'purchaseorder', 'PO_Number');
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
 
@@ -109,23 +144,26 @@ class Page extends MY_Controller {
     }
 
 
-    public function lesson(){
+    public function lesson()
+    {
 
         $data['curr_page'] = "lesson";
         $this->render_backend('lesson', $data);
     }
 
-    public function quiz(){
+    public function quiz()
+    {
         $this->load->model('DatabaseModel');
 
         $data['curr_page'] = "quiz";
         $data['quiz'] = $this->DatabaseModel->getAllQuiz();
         $data['quiz_score'] = $this->DatabaseModel->getQuizScore($this->session->userdata('username'));
-        
+
         $this->render_backend('quiz', $data);
     }
 
-    public function quiz_form($id=NULL){
+    public function quiz_form($id = NULL)
+    {
         $this->load->model('DatabaseModel');
 
         $data['curr_page'] = "quiz_form";
@@ -133,7 +171,8 @@ class Page extends MY_Controller {
         $this->render_backend('quiz_form', $data);
     }
 
-    public function profile(){
+    public function profile()
+    {
         $this->load->model('UserModel');
         $this->load->model('DatabaseModel');
 
@@ -142,13 +181,14 @@ class Page extends MY_Controller {
         $data = $this->UserModel->getProfile($username);
 
         $data['curr_page'] = "profile";
-        $this->render_backend('profile', $data); 
+        $this->render_backend('profile', $data);
     }
 
-    public function form_profile(){
-        
+    public function form_profile()
+    {
+
         $this->load->model('UserModel');
-            
+
         $role = $this->session->userdata('role');
         $nomor_induk = $this->session->userdata('nomor_induk');
 
@@ -157,7 +197,7 @@ class Page extends MY_Controller {
         $gender = $this->input->post('iGender');
         $birth_date = $this->input->post('iBDate');
 
-       
+
         $data = array(
             'first_name' => $first_name,
             'last_name' => $last_name,
@@ -165,25 +205,25 @@ class Page extends MY_Controller {
             'birth_date' => $birth_date
         );
 
-    
-        if($role == 'user'){
+
+        if ($role == 'user') {
             $where = array(
                 'username' => $this->session->userdata('username')
             );
         }
 
-    
+
         $table = $role;
-        
+
         $this->UserModel->update_data($where, $data, $table);
 
         $this->session->set_flashdata('message', 'Profile has changed successfully');
 
         redirect('page/profile');
-
     }
 
-    public function form_account(){
+    public function form_account()
+    {
         $this->load->model('UserModel');
 
         $this->load->library('encryption');
@@ -195,31 +235,28 @@ class Page extends MY_Controller {
         $curr_password = md5($this->input->post('curr_password'));
         $new_password = md5($this->input->post('new_password'));
 
-        if($curr_password != $user['user']->password){ 
-            $this->session->set_flashdata('error', 'Current password is wrong'); 
-            redirect('page/profile'); 
-        }else{
-          
+        if ($curr_password != $user['user']->password) {
+            $this->session->set_flashdata('error', 'Current password is wrong');
+            redirect('page/profile');
+        } else {
+
             $data = array(
                 'password' => $new_password
             );
 
-           
+
             $where = array(
                 'username' => $username
             );
 
-          
+
             $table = $role;
-            
+
             $this->UserModel->update_data($where, $data, $table);
 
             $this->session->set_flashdata('message', 'Password has changed successfully');
 
             redirect('page/profile');
         }
-
     }
-
 }
-?>
