@@ -8,10 +8,10 @@ foreach ($crud['js_files'] as $file) : ?>
     <script src="<?php echo $file; ?>"></script>
 <?php endforeach; ?>
 
-<div class="container-fluid">
-    <?php
-    if (isset($extra) && $state === 'list') {
-    ?>
+<?php
+if (isset($extra) && $state === 'list') {
+?>
+    <div class="container mb-5">
         <h3 class="panel-title">Record <?= $table ?></h3>
         <div class="table-responsive">
             <table class="table table-striped">
@@ -32,8 +32,10 @@ foreach ($crud['js_files'] as $file) : ?>
                 </tbody>
             </table>
         </div>
-    <?php
-    }
-    ?>
+    </div>
+<?php
+}
+?>
+<div class="container-fluid">
     <?php echo $crud['output']; ?>
 </div>
