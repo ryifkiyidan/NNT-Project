@@ -111,18 +111,22 @@ class Page extends MY_Controller
     public function podetail($id)
     {
         $data['curr_page'] = "purchaseorder";
-
+        $this->load->model('DatabaseModel');
         $this->load->library('grocery_CRUD');
         $crud = new grocery_CRUD();
-        $crud->where('PO_Number', $id);
-        $crud->set_table('orderdetail');
         $crud->set_theme('tablestrap4');
         $crud->set_subject('Order Detail');
-        $crud->display_as('ID_Product', 'Product Name');
+        $crud->set_table('orderdetail');
+        $crud->columns('ID_OrderDet', 'ID_Product', 'Qty_Order', 'Size');
+        $crud->where('PO_Number', $id);
         $crud->set_relation('ID_Product', 'product', 'Name');
+        $crud->display_as('ID_Product', 'Product Name');
 
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
+        $data['extra'] = get_object_vars($this->DatabaseModel->getPO($id));
+        $data['table'] = 'Purchase Order';
+        $data['state'] = $crud->getState();
 
         $this->render_backend('crud_view', $data);
     }
