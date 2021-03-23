@@ -9,7 +9,7 @@ foreach ($crud['js_files'] as $file) : ?>
 <?php endforeach; ?>
 
 <?php
-if (isset($extra) && $state === 'list') {
+if (isset($extra) && ($state === 'list' || $state === 'success')) {
 ?>
     <div class="container mb-5">
         <h3 class="panel-title">Record <?= $table ?></h3>
