@@ -7,9 +7,43 @@ class DatabaseModel extends CI_Model
         $data = $this->db
             ->select(array('PO_Number', 'company.Name as Company Name', 'Date', 'Delivered_Schedule', 'Delivered_By'))
             ->where('PO_Number', $id)
-            ->join('company', 'purchaseorder.ID_Company = company.ID_Company', 'right')
+            ->join('company', 'purchaseorder.ID_Company = company.ID', 'right')
             ->get('purchaseorder')->row();
         return $data;
+    }
+
+    public function getAutoId($id_terakhir, $panjang_kode, $panjang_angka)
+    {
+        // mengambil nilai kode ex: KNS0015 hasil KNS
+        $kode = substr($id_terakhir, 0, $panjang_kode);
+
+        // mengambil nilai angka
+        // ex: KNS0015 hasilnya 0015
+        $angka = substr($id_terakhir, $panjang_kode, $panjang_angka);
+
+        // menambahkan nilai angka dengan 1
+        // kemudian memberikan string 0 agar panjang string angka menjadi 4
+        // ex: angka baru = 6 maka ditambahkan strig 0 tiga kali
+        // sehingga menjadi 0006
+        $angka_baru = str_repeat("0", $panjang_angka - strlen($angka + 1)) . ($angka + 1);
+
+        // menggabungkan kode dengan nilang angka baru
+        $id_baru = $kode . $angka_baru;
+
+        return $id_baru;
+    }
+
+    public function getLastId($table)
+    {
+        $this->db->select('ID');
+        $this->db->order_by('ID', 'DESC');
+        $this->db->limit(1);
+        $data = $this->db->get($table)->row();
+        if ($data == NULL) {
+            return NULL;
+        } else {
+            return $data->ID;
+        }
     }
 
     // REFERENSI
