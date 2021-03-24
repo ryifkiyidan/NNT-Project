@@ -5,7 +5,7 @@
 				<th><?php echo $column->display_as; ?></th>
 			<?php } ?>
 			<?php if (!$unset_delete || !$unset_edit || !$unset_read || !empty($actions)) { ?>
-				<th class='actions'><?php echo $this->l('list_actions'); ?></th>
+				<th class='actions' style="text-align: right;"><?php echo $this->l('list_actions'); ?></th>
 			<?php } ?>
 		</tr>
 	</thead>
