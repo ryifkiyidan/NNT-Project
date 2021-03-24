@@ -20,7 +20,7 @@
 						<?php if (!empty($row->action_urls)) {
 							foreach ($row->action_urls as $action_unique_id => $action_url) {
 								$action = $actions[$action_unique_id]; ?>
-								<a href="<?php echo $action_url; ?>" class="edit_button btn btn-xs btn-dark mb-1 mr-1" role="button">
+								<a href="<?php echo $action_url; ?>" class="edit_button btn btn-xs btn-secondary mb-1 mr-1" role="button">
 									<i class="far fa-<?php echo $action->css_class; ?> <?php echo $action_unique_id; ?>"></i>
 									<?php echo $action->label ?>
 								</a>
@@ -28,21 +28,21 @@
 						} ?>
 
 						<?php if (!$unset_read) { ?>
-							<a href="<?php echo $row->read_url ?>" class="edit_button btn btn-xs btn-dark btn-sm mb-1 mr-1" role="button">
+							<a href="<?php echo $row->read_url ?>" class="edit_button btn btn-xs btn-secondary btn-sm mb-1 mr-1" role="button">
 								<i class="far fa-info-circle"></i>
 								<?php echo $this->l('list_view'); ?>
 							</a>
 						<?php } ?>
 
 						<?php if (!$unset_clone) { ?>
-							<a href="<?php echo $row->clone_url ?>" class="edit_button btn btn-xs btn-dark btn-sm hidden-xs mb-1 mr-1" role="button">
+							<a href="<?php echo $row->clone_url ?>" class="edit_button btn btn-xs btn-secondary btn-sm hidden-xs mb-1 mr-1" role="button">
 								<i class="far fa-copy"></i>
 								<?php echo $this->l('list_clone'); ?>
 							</a>
 						<?php } ?>
 
 						<?php if (!$unset_edit) { ?>
-							<a href="<?php echo $row->edit_url ?>" class="edit_button btn btn-xs btn-dark btn-sm hidden-xs mb-1 mr-1" role="button">
+							<a href="<?php echo $row->edit_url ?>" class="edit_button btn btn-xs btn-secondary btn-sm hidden-xs mb-1 mr-1" role="button">
 								<i class="far fa-pencil-alt"></i>
 								<?php echo $this->l('list_edit'); ?>
 							</a>
