@@ -36,6 +36,6 @@ if (isset($extra) && ($state === 'list' || $state === 'success')) {
 <?php
 }
 ?>
-<div class="container-fluid">
+<div class="container-fluid mb-5">
     <?php echo $crud['output']; ?>
 </div>

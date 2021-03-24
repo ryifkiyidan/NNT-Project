@@ -30,10 +30,13 @@ class Page extends MY_Controller
         $crud->set_subject('Company');
 
         // Rules
+        $crud->unique_fields('ID');
         $crud->required_fields(array('ID', 'Name', 'Location', 'Phone_Number'));
 
         // Callbacks
+        $this->crud_state = $crud->getState();
         $crud->callback_add_field('ID', array($this, '_get_auto_generate_id'));
+        $crud->callback_edit_field('ID', array($this, '_get_auto_generate_id'));
 
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
@@ -58,10 +61,13 @@ class Page extends MY_Controller
         $crud->set_relation('ID_Company', 'company', 'Name');
 
         // Rules
+        $crud->unique_fields('ID');
         $crud->required_fields(array('ID', 'ID_Company', 'Name', 'Gender'));
 
         // Callbacks
+        $this->crud_state = $crud->getState();
         $crud->callback_add_field('ID', array($this, '_get_auto_generate_id'));
+        $crud->callback_edit_field('ID', array($this, '_get_auto_generate_id'));
 
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
@@ -85,7 +91,10 @@ class Page extends MY_Controller
         $crud->required_fields(array('ID', 'Name', 'Price'));
 
         // Callbacks
+        $crud->unique_fields('ID');
+        $this->crud_state = $crud->getState();
         $crud->callback_add_field('ID', array($this, '_get_auto_generate_id'));
+        $crud->callback_edit_field('ID', array($this, '_get_auto_generate_id'));
 
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
@@ -112,10 +121,13 @@ class Page extends MY_Controller
         $crud->set_relation('ID_Fabric', 'fabric', 'name');
 
         // Rules
+        $crud->unique_fields('ID');
         $crud->required_fields(array('ID', 'ID_Company', 'ID_Fabric', 'Name', 'Price'));
 
         // Callbacks
+        $this->crud_state = $crud->getState();
         $crud->callback_add_field('ID', array($this, '_get_auto_generate_id'));
+        $crud->callback_edit_field('ID', array($this, '_get_auto_generate_id'));
 
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
@@ -146,6 +158,7 @@ class Page extends MY_Controller
         $crud->display_as('ID_Company', 'Company Name');
 
         // Rules
+        $crud->unique_fields('PO_Number');
         $crud->required_fields(array('PO_Number', 'ID_Company', 'Date', 'Delivered_Schedule'));
 
         $output = $crud->render();
@@ -179,10 +192,13 @@ class Page extends MY_Controller
         $crud->unset_fields('Qty_Sent');
 
         // Rules
+        $crud->unique_fields('ID');
         $crud->required_fields(array('ID', 'ID_Product', 'PO_Number', 'Qty_Order', 'Size'));
 
         // Callbacks
+        $this->crud_state = $crud->getState();
         $crud->callback_add_field('ID', array($this, '_get_auto_generate_id'));
+        $crud->callback_edit_field('ID', array($this, '_get_auto_generate_id'));
         $this->po_number = $id;
         $crud->callback_add_field('PO_Number', function () {
             return '<input id="field-PO_Number" class="form-control" name="PO_Number" type="text" value="' . $this->po_number . '" maxlength="6" readonly>';
@@ -213,8 +229,11 @@ class Page extends MY_Controller
         $this->render_backend('crud_view', $data);
     }
 
-    public function _get_auto_generate_id()
+    public function _get_auto_generate_id($value)
     {
+        if ($this->crud_state === 'edit') {
+            return '<input id="field-ID" class="form-control" name="ID" type="text" value="' . $value . '" maxlength="6" readonly>';
+        }
         $this->load->model('DatabaseModel');
         $lastId = $this->DatabaseModel->getLastId($this->curr_table);
         if ($lastId == NULL) {
