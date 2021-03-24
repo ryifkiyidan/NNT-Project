@@ -60,6 +60,8 @@ class Page extends MY_Controller
 
         $crud->set_relation('ID_Company', 'company', 'Name');
 
+        $crud->columns('ID', 'ID_Company', 'Name', 'Gender');
+
         // Rules
         $crud->unique_fields('ID');
         $crud->required_fields(array('ID', 'ID_Company', 'Name', 'Gender'));
@@ -201,6 +203,9 @@ class Page extends MY_Controller
         $crud->callback_edit_field('ID', array($this, '_get_auto_generate_id'));
         $this->po_number = $id;
         $crud->callback_add_field('PO_Number', function () {
+            return '<input id="field-PO_Number" class="form-control" name="PO_Number" type="text" value="' . $this->po_number . '" maxlength="6" readonly>';
+        });
+        $crud->callback_edit_field('PO_Number', function () {
             return '<input id="field-PO_Number" class="form-control" name="PO_Number" type="text" value="' . $this->po_number . '" maxlength="6" readonly>';
         });
 
