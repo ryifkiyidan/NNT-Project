@@ -5,7 +5,7 @@ class Page extends MY_Controller
 
     public function dashboard()
     {
-        $data['curr_page'] = "dashboard";
+        $data['curr_page'] = 'dashboard';
 
         $this->load->library('grocery_CRUD');
         $crud = new grocery_CRUD();
@@ -19,7 +19,7 @@ class Page extends MY_Controller
 
     public function company()
     {
-        $data['curr_page'] = "company";
+        $data['curr_page'] = 'company';
 
         $this->load->library('grocery_CRUD');
         $crud = new grocery_CRUD();
@@ -46,7 +46,7 @@ class Page extends MY_Controller
 
     public function cusreqsize()
     {
-        $data['curr_page'] = "cusreqsize";
+        $data['curr_page'] = 'cusreqsize';
 
         $this->load->library('grocery_CRUD');
         $crud = new grocery_CRUD();
@@ -79,7 +79,7 @@ class Page extends MY_Controller
 
     public function fabric()
     {
-        $data['curr_page'] = "fabric";
+        $data['curr_page'] = 'fabric';
 
         $this->load->library('grocery_CRUD');
         $crud = new grocery_CRUD();
@@ -106,7 +106,7 @@ class Page extends MY_Controller
 
     public function product()
     {
-        $data['curr_page'] = "product";
+        $data['curr_page'] = 'product';
 
         $this->load->library('grocery_CRUD');
         $crud = new grocery_CRUD();
@@ -139,7 +139,7 @@ class Page extends MY_Controller
 
     public function purchaseorder()
     {
-        $data['curr_page'] = "purchaseorder";
+        $data['curr_page'] = 'purchaseorder';
 
         $this->load->library('grocery_CRUD');
         $crud = new grocery_CRUD();
@@ -149,9 +149,10 @@ class Page extends MY_Controller
         $stateInfo = $crud->getStateInfo();
 
         if ($state === 'read') {
-            redirect('page/podetail/' . $stateInfo->primary_key);
+            redirect('page/detail_po/' . $stateInfo->primary_key);
         }
 
+        $this->curr_table = 'purchaseorder';
         $crud->set_table('purchaseorder');
         $crud->set_subject('Purchase Order');
 
@@ -169,9 +170,9 @@ class Page extends MY_Controller
         $this->render_backend('crud_view', $data);
     }
 
-    public function podetail($id)
+    public function detail_po($id)
     {
-        $data['curr_page'] = "purchaseorder";
+        $data['curr_page'] = 'purchaseorder';
 
         $this->load->model('DatabaseModel');
 
@@ -220,16 +221,86 @@ class Page extends MY_Controller
 
     public function deliveryorder()
     {
-        $data['curr_page'] = "product";
+        $data['curr_page'] = 'deliveryorder';
 
         $this->load->library('grocery_CRUD');
         $crud = new grocery_CRUD();
-        $crud->set_table('deliveryorder');
         $crud->set_theme('tablestrap4');
+
+        $state = $crud->getState();
+        $stateInfo = $crud->getStateInfo();
+
+        if ($state === 'read') {
+            redirect('page/detail_do/' . $stateInfo->primary_key);
+        }
+
+        $this->curr_table = 'deliveryorder';
+        $crud->set_table('deliveryorder');
         $crud->set_subject('Delivery Order');
+
         $crud->set_relation('PO_Number', 'purchaseorder', 'PO_Number');
+
+        $crud->columns('ID', 'DO_Number', 'PO_Number', 'Company_Name', 'Date');
+
+        // Rules
+        $crud->unique_fields(array('ID', 'DO_Number'));
+        $crud->required_fields(array('ID', 'DO_Number', 'PO_Number', 'Date'));
+
+        // Callbacks
+        $this->crud_state = $crud->getState();
+        $crud->callback_add_field('ID', array($this, '_get_auto_generate_id'));
+        $crud->callback_edit_field('ID', array($this, '_get_auto_generate_id'));
+        $crud->callback_column('Company_Name', function ($value, $row) {
+            $this->load->model('DatabaseModel');
+            $po = $this->DatabaseModel->getPO($row->PO_Number);
+            return $po->Name;
+        });
+
         $output = $crud->render();
         $data['crud'] = get_object_vars($output);
+
+        $this->render_backend('crud_view', $data);
+    }
+
+    public function detail_do($id)
+    {
+        $data['curr_page'] = 'deliveryorder';
+
+        $this->load->model('DatabaseModel');
+        $do = $this->DatabaseModel->getData('deliveryorder', array('ID' => $id));
+        $po = $this->DatabaseModel->getPO($do->PO_Number);
+        $do->Name = $po->Name;
+
+        $this->load->library('grocery_CRUD');
+        $crud = new grocery_CRUD();
+        $crud->set_theme('tablestrap4');
+
+        $this->curr_table = 'orderdetail';
+        $crud->set_table('orderdetail');
+        $crud->set_subject('Order Detail');
+
+        $crud->display_as('ID_Product', 'Product Name');
+
+        $crud->set_relation('ID_Product', 'product', 'Name');
+
+        $crud->columns('ID', 'ID_Product', 'Size', 'Qty_Order', 'Qty_Sent');
+
+        $crud->where('PO_Number', $do->PO_Number);
+
+        $crud->unset_add();
+        $crud->unset_edit_fields('Qty_Order', 'ID', 'PO_Number');
+        $crud->field_type('ID_Product', 'readonly');
+        $crud->field_type('Size', 'readonly');
+
+        // Rules
+        $crud->unique_fields('ID');
+        $crud->required_fields(array('Qty_Sent'));
+
+        $output = $crud->render();
+        $data['crud'] = get_object_vars($output);
+        $data['extra'] = get_object_vars($do);
+        $data['table'] = 'Delivery Order';
+        $data['state'] = $crud->getState();
 
         $this->render_backend('crud_view', $data);
     }
@@ -276,7 +347,7 @@ class Page extends MY_Controller
         $role = $this->session->userdata('role');
         $data = $this->UserModel->getProfile($username);
 
-        $data['curr_page'] = "profile";
+        $data['curr_page'] = 'profile';
         $this->render_backend('profile', $data);
     }
 

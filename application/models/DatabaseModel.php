@@ -5,10 +5,17 @@ class DatabaseModel extends CI_Model
     public function getPO($id)
     {
         $data = $this->db
-            ->select(array('PO_Number', 'company.Name as Company Name', 'Date', 'Delivered_Schedule', 'Delivered_By'))
+            ->select(array('PO_Number', 'company.Name', 'Date', 'Delivered_Schedule', 'Delivered_By'))
             ->where('PO_Number', $id)
             ->join('company', 'purchaseorder.ID_Company = company.ID', 'right')
             ->get('purchaseorder')->row();
+        return $data;
+    }
+
+    public function getData($table, $where = null)
+    {
+        if ($where !== null) $this->db->where($where);
+        $data = $this->db->get($table)->row();
         return $data;
     }
 
