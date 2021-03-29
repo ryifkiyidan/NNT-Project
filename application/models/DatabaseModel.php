@@ -1,104 +1,114 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 class DatabaseModel extends CI_Model
 {
-    // New Code
-    public function getPO($id)
-    {
-        $data = $this->db
-            ->select(array('PO_Number', 'company.Name', 'Date', 'Delivered_Schedule', 'Delivered_By'))
-            ->where('PO_Number', $id)
-            ->join('company', 'purchaseorder.ID_Company = company.ID', 'right')
-            ->get('purchaseorder')->row();
-        return $data;
-    }
+	// New Code
+	public function getPO($id)
+	{
+		$data = $this->db
+			->select(array('PO_Number', 'company.Name', 'Date', 'Delivered_Schedule', 'Delivered_By'))
+			->where('PO_Number', $id)
+			->join('company', 'purchaseorder.ID_Company = company.ID', 'right')
+			->get('purchaseorder')->row();
+		return $data;
+	}
 
-    public function getData($table, $where = null)
-    {
-        if ($where !== null) $this->db->where($where);
-        $data = $this->db->get($table)->row();
-        return $data;
-    }
+	public function getData($table, $where = null)
+	{
+		if ($where !== null) $this->db->where($where);
+		$data = $this->db->get($table)->row();
+		return $data;
+	}
 
-    public function getAutoId($id_terakhir, $panjang_kode, $panjang_angka)
-    {
-        // mengambil nilai kode ex: KNS0015 hasil KNS
-        $kode = substr($id_terakhir, 0, $panjang_kode);
+	public function getOrderDetail($id)
+	{
+		$data = $this->db
+			->select(array('product.Name', 'Size', 'Qty_Order', 'Qty_Sent'))
+			->where('PO_Number', $id)
+			->join('product', 'product.ID = orderdetail.ID_Product')
+			->get('orderdetail')->row();
+		return $data;
+	}
 
-        // mengambil nilai angka
-        // ex: KNS0015 hasilnya 0015
-        $angka = substr($id_terakhir, $panjang_kode, $panjang_angka);
+	public function getAutoId($id_terakhir, $panjang_kode, $panjang_angka)
+	{
+		// mengambil nilai kode ex: KNS0015 hasil KNS
+		$kode = substr($id_terakhir, 0, $panjang_kode);
 
-        // menambahkan nilai angka dengan 1
-        // kemudian memberikan string 0 agar panjang string angka menjadi 4
-        // ex: angka baru = 6 maka ditambahkan strig 0 tiga kali
-        // sehingga menjadi 0006
-        $angka_baru = str_repeat("0", $panjang_angka - strlen($angka + 1)) . ($angka + 1);
+		// mengambil nilai angka
+		// ex: KNS0015 hasilnya 0015
+		$angka = substr($id_terakhir, $panjang_kode, $panjang_angka);
 
-        // menggabungkan kode dengan nilang angka baru
-        $id_baru = $kode . $angka_baru;
+		// menambahkan nilai angka dengan 1
+		// kemudian memberikan string 0 agar panjang string angka menjadi 4
+		// ex: angka baru = 6 maka ditambahkan strig 0 tiga kali
+		// sehingga menjadi 0006
+		$angka_baru = str_repeat("0", $panjang_angka - strlen($angka + 1)) . ($angka + 1);
 
-        return $id_baru;
-    }
+		// menggabungkan kode dengan nilang angka baru
+		$id_baru = $kode . $angka_baru;
 
-    public function getLastId($table)
-    {
-        $this->db->select('ID');
-        $this->db->order_by('ID', 'DESC');
-        $this->db->limit(1);
-        $data = $this->db->get($table)->row();
-        if ($data == NULL) {
-            return NULL;
-        } else {
-            return $data->ID;
-        }
-    }
+		return $id_baru;
+	}
 
-    // REFERENSI
-    public function getQuizScore($id = NULL)
-    {
-        $this->db->where('username', $id);
-        $data = $this->db->get('score')->result_array();
+	public function getLastId($table)
+	{
+		$this->db->select('ID');
+		$this->db->order_by('ID', 'DESC');
+		$this->db->limit(1);
+		$data = $this->db->get($table)->row();
+		if ($data == NULL) {
+			return NULL;
+		} else {
+			return $data->ID;
+		}
+	}
 
-        return $data;
-    }
+	// REFERENSI
+	public function getQuizScore($id = NULL)
+	{
+		$this->db->where('username', $id);
+		$data = $this->db->get('score')->result_array();
 
-    public function getAllQuiz()
-    {
-        $data = $this->db->get('quiz')->result_array();
-        return $data;
-    }
+		return $data;
+	}
 
-    public function getQuiz($id)
-    {
-        $this->db->where('id', $id);
-        $data = $this->db->get('quiz')->row();
-        return $data;
-    }
+	public function getAllQuiz()
+	{
+		$data = $this->db->get('quiz')->result_array();
+		return $data;
+	}
 
-    public function deleteQuiz($id)
-    {
-        $this->db->where('quiz_id', $id);
-        $this->db->delete('score');
+	public function getQuiz($id)
+	{
+		$this->db->where('id', $id);
+		$data = $this->db->get('quiz')->row();
+		return $data;
+	}
 
-        $this->db->where('id', $id);
-        $this->db->delete('quiz');
-    }
+	public function deleteQuiz($id)
+	{
+		$this->db->where('quiz_id', $id);
+		$this->db->delete('score');
 
-    public function update_data($where, $data, $table)
-    {
-        $this->db->where($where);
-        $q = $this->db->get($table);
-        if ($q->num_rows() > 0) {
-            $this->db->where($where);
-            $this->db->update($table, $data);
-        } else {
-            $this->db->set($data);
-            $this->db->insert($table, $data);
-        }
-    }
+		$this->db->where('id', $id);
+		$this->db->delete('quiz');
+	}
 
-    public function insert_data($data, $table)
-    {
-        $this->db->insert($table, $data);
-    }
+	public function update_data($where, $data, $table)
+	{
+		$this->db->where($where);
+		$q = $this->db->get($table);
+		if ($q->num_rows() > 0) {
+			$this->db->where($where);
+			$this->db->update($table, $data);
+		} else {
+			$this->db->set($data);
+			$this->db->insert($table, $data);
+		}
+	}
+
+	public function insert_data($data, $table)
+	{
+		$this->db->insert($table, $data);
+	}
 }
