@@ -449,7 +449,7 @@ class Page extends MY_Controller
 			);
 
 
-			$table = $role;
+			$table = 'user';
 
 			$this->UserModel->update_data($where, $data, $table);
 
