@@ -1,38 +1,43 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-class Auth extends MY_Controller {
-    public function __construct(){
-        parent:: __construct();
+defined('BASEPATH') or exit('No direct script access allowed');
+class Auth extends MY_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
         $this->load->model('UserModel');
     }
-    public function index(){
-        if($this->session->userdata('authenticated'))
+    public function index()
+    {
+        if ($this->session->userdata('authenticated'))
             redirect('page/dashboard');
 
         $this->render_login('login');
     }
 
-    public function register_page(){
-        if($this->session->userdata('authenticated'))
+    public function register_page()
+    {
+        if ($this->session->userdata('authenticated'))
             redirect('page/dashboard');
-        
+
         $this->render_login('register');
     }
 
-    public function login(){
-        
-        $username = $this->input->post('username');       
+    public function login()
+    {
+
+        $username = $this->input->post('username');
         $password = md5($this->input->post('password'));
         $data     = $this->UserModel->get($username);
-        
-        if(empty($data['user'])){
+
+        if (empty($data['user'])) {
             $this->session->set_flashdata('message', 'Username tidak ditemukan');
             redirect('auth');
-        }else{
-            if($password != $data['user']->password){
+        } else {
+            if ($password != $data['user']->password) {
                 $this->session->set_flashdata('message', 'Password salah');
                 redirect('auth');
-            }else{
+            } else {
                 $session = array(
                     'authenticated' => true,
                     'username'      => $data['user']->username,
@@ -42,30 +47,43 @@ class Auth extends MY_Controller {
                 );
 
                 $this->session->set_userdata($session);
+
+                //get activitylog
+                $logid = $this->getAutoLogID();
+
+                $loginfo = array(
+                    'ID' => $logid,
+                    'user_username' => $data['user']->username,
+                    'action' => 'successfully login',
+                );
+                $logtable = 'activitylog';
+                $this->DatabaseModel->insert_data($loginfo, $logtable);
+
                 redirect('page/dashboard');
             }
         }
     }
 
-    public function register(){
+    public function register()
+    {
         $iFName   = $this->input->post('iFName');
         $iLName   = $this->input->post('iLName');
         $iGender  = $this->input->post('iGender');
         $iBDate   = $this->input->post('iBDate');
-        $username = $this->input->post('username');       
+        $username = $this->input->post('username');
         $password = md5($this->input->post('password'));
         $confirm_password = md5($this->input->post('confirm_password'));
-        
+
         $data     = $this->UserModel->get($username);
-        if(!empty($data['user'])){
+        if (!empty($data['user'])) {
             $this->session->set_flashdata('message', 'Username sudah ada');
             redirect('auth/register_page');
         }
-        if($password !== $confirm_password){
+        if ($password !== $confirm_password) {
             $this->session->set_flashdata('message', 'Confirm Password salah');
             redirect('auth/register_page');
         }
-        if(strlen($password) < 6){
+        if (strlen($password) < 6) {
             $this->session->set_flashdata('message', 'Password harus mengandung 6 atau lebih karakter');
             redirect('auth/register_page');
         }
@@ -79,20 +97,29 @@ class Auth extends MY_Controller {
             'password'        => $password
         );
 
-        if($this->UserModel->registerAccount($data)){
+        if ($this->UserModel->registerAccount($data)) {
             $this->session->set_flashdata('message', 'Akun berhasil dibuat, Silahkan Login');
             redirect('auth');
-        }
-        else{
+        } else {
             $this->session->set_flashdata('message', 'Akun gagal dibuat, Silahkan Coba Beberapa Saat Lagi');
             redirect('auth');
         }
-
     }
 
-    public function logout(){
+    public function logout()
+    {
         $this->session->sess_destroy();
         redirect('auth');
     }
+
+    public function getAutoLogID()
+    {
+        $this->load->model('DatabaseModel');
+        $lastId = $this->DatabaseModel->getLastId('activitylog');
+        if ($lastId == NULL) {
+            $lastId = 'AL0000';
+        }
+        $newId = $this->DatabaseModel->getAutoId($lastId, 2, 4);
+        return $newId;
+    }
 }
-?>

@@ -38,6 +38,9 @@ class Page extends MY_Controller
 		$crud->callback_add_field('ID', array($this, '_get_auto_generate_id'));
 		$crud->callback_edit_field('ID', array($this, '_get_auto_generate_id'));
 
+		//callback get activitylog
+
+
 		$output = $crud->render();
 		$data['crud'] = get_object_vars($output);
 
@@ -366,7 +369,34 @@ class Page extends MY_Controller
 			}
 		}
 		$newId = $this->DatabaseModel->getAutoId($lastId, 2, 4);
-		return '<input id="field-ID" class="form-control" name="ID" type="text" value="' . $newId . '" maxlength="6" readonly>';
+		return $newId;
+	}
+
+	public function activitylog()
+	{
+		$data['curr_page'] = 'activitylog';
+
+		$this->load->library('grocery_CRUD');
+		$crud = new grocery_CRUD();
+		$crud->set_theme('tablestrap4');
+
+		$this->curr_table = 'activitylog';
+		$crud->set_table('activitylog');
+		$crud->set_subject('Activity Log');
+		$crud->columns('user_username', 'action', 'action_time');
+		$crud->display_as('user_username', 'User');
+
+		$crud->order_by('action_time', 'desc');
+		$crud->unset_add();
+		$crud->unset_edit();
+
+
+		$output = $crud->render();
+		$data['crud'] = get_object_vars($output);
+
+
+
+		$this->render_backend('crud_view', $data);
 	}
 
 	public function profile()
