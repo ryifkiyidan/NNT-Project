@@ -37,7 +37,7 @@ class DatabaseModel extends CI_Model
 			->select(array('product.Name', 'Size', 'Qty_Order', 'Qty_Sent'))
 			->where('PO_Number', $id)
 			->join('product', 'product.ID = orderdetail.ID_Product')
-			->get('orderdetail');
+			->get('orderdetail')->result();
 		return $data;
 	}
 
