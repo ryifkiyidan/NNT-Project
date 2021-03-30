@@ -2,20 +2,32 @@
 class DatabaseModel extends CI_Model
 {
 	// New Code
+	public function getData($table, $where = null)
+	{
+		if ($where !== null) $this->db->where($where);
+		$data = $this->db->get($table)->row();
+		return $data;
+	}
+
 	public function getPO($id)
 	{
 		$data = $this->db
 			->select(array('PO_Number', 'company.Name', 'Date', 'Delivered_Schedule', 'Delivered_By'))
 			->where('PO_Number', $id)
-			->join('company', 'purchaseorder.ID_Company = company.ID', 'right')
+			->join('company', 'purchaseorder.ID_Company = company.ID')
 			->get('purchaseorder')->row();
 		return $data;
 	}
 
-	public function getData($table, $where = null)
+	public function getDO($id)
 	{
-		if ($where !== null) $this->db->where($where);
-		$data = $this->db->get($table)->row();
+		$data = $this->db
+			->select(array('D.ID', 'D.DO_Number', 'D.PO_Number', 'C.Name', 'C.Location', 'D.Date'))
+			->from('deliveryorder as D')
+			->where('D.ID', $id)
+			->join('purchaseorder as P', 'P.PO_Number = D.PO_Number')
+			->join('company as C', 'P.ID_Company = C.ID')
+			->get()->row();
 		return $data;
 	}
 
@@ -25,7 +37,7 @@ class DatabaseModel extends CI_Model
 			->select(array('product.Name', 'Size', 'Qty_Order', 'Qty_Sent'))
 			->where('PO_Number', $id)
 			->join('product', 'product.ID = orderdetail.ID_Product')
-			->get('orderdetail')->row();
+			->get('orderdetail')->result();
 		return $data;
 	}
 
