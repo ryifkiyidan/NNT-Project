@@ -331,7 +331,7 @@ class Page extends MY_Controller
 		$data['curr_page'] = 'deliveryorder';
 
 		$this->load->model('DatabaseModel');
-		$data['deliveryorder'] = $this->DatabaseModel->getData('deliveryorder', array('ID' => $id));
+		$data['deliveryorder'] = $this->DatabaseModel->getDO($id);
 		$data['orderdetail'] = $this->DatabaseModel->getOrderDetail($data['deliveryorder']->PO_Number);
 		$this->load->view('prints/delivery_order', $data);
 	}
