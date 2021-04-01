@@ -39,7 +39,11 @@ class Page extends MY_Controller
 		$crud->callback_edit_field('ID', array($this, '_get_auto_generate_id'));
 
 		//callback get activitylog
-
+		//get id bersangkutan
+		$this->curr_id = $crud->getStateInfo();
+		$crud->callback_after_insert(array($this, 'getUserLog'));
+		$crud->callback_after_update(array($this, 'getUserLog'));
+		//$crud->callback_before_delete(array($this, 'getUserLog'));
 
 		$output = $crud->render();
 		$data['crud'] = get_object_vars($output);
@@ -74,6 +78,11 @@ class Page extends MY_Controller
 		$crud->callback_add_field('ID', array($this, '_get_auto_generate_id'));
 		$crud->callback_edit_field('ID', array($this, '_get_auto_generate_id'));
 
+		//callback get activitylog
+		$this->curr_id = $crud->getStateInfo();
+		$crud->callback_after_insert(array($this, 'getUserLog'));
+		$crud->callback_after_update(array($this, 'getUserLog'));
+
 		$output = $crud->render();
 		$data['crud'] = get_object_vars($output);
 
@@ -100,6 +109,11 @@ class Page extends MY_Controller
 		$this->crud_state = $crud->getState();
 		$crud->callback_add_field('ID', array($this, '_get_auto_generate_id'));
 		$crud->callback_edit_field('ID', array($this, '_get_auto_generate_id'));
+
+		//callback get activitylog
+		$this->curr_id = $crud->getStateInfo();
+		$crud->callback_after_insert(array($this, 'getUserLog'));
+		$crud->callback_after_update(array($this, 'getUserLog'));
 
 		$output = $crud->render();
 		$data['crud'] = get_object_vars($output);
@@ -134,6 +148,11 @@ class Page extends MY_Controller
 		$crud->callback_add_field('ID', array($this, '_get_auto_generate_id'));
 		$crud->callback_edit_field('ID', array($this, '_get_auto_generate_id'));
 
+		//callback get activitylog
+		$this->curr_id = $crud->getStateInfo();
+		$crud->callback_after_insert(array($this, 'getUserLog'));
+		$crud->callback_after_update(array($this, 'getUserLog'));
+
 		$output = $crud->render();
 		$data['crud'] = get_object_vars($output);
 
@@ -166,6 +185,11 @@ class Page extends MY_Controller
 		// Rules
 		$crud->unique_fields('PO_Number');
 		$crud->required_fields(array('PO_Number', 'ID_Company', 'Date', 'Delivered_Schedule'));
+
+		//callback get activitylog
+		$this->curr_id = $crud->getStateInfo();
+		$crud->callback_after_insert(array($this, 'getUserLog'));
+		$crud->callback_after_update(array($this, 'getUserLog'));
 
 		$output = $crud->render();
 		$data['crud'] = get_object_vars($output);
@@ -213,6 +237,11 @@ class Page extends MY_Controller
 			return '<input id="field-PO_Number" class="form-control" name="PO_Number" type="text" value="' . $this->po_number . '" maxlength="6" readonly>';
 		});
 
+		//callback get activitylog
+		$this->curr_id = $crud->getStateInfo();
+		$crud->callback_after_insert(array($this, 'getUserLog'));
+		$crud->callback_after_update(array($this, 'getUserLog'));
+
 		$output = $crud->render();
 		$data['crud'] = get_object_vars($output);
 		$data['extra'] = get_object_vars($this->DatabaseModel->getPO($id));
@@ -258,6 +287,11 @@ class Page extends MY_Controller
 			$po = $this->DatabaseModel->getPO($row->PO_Number);
 			return $po->Name;
 		});
+
+		//callback get activitylog
+		$this->curr_id = $crud->getStateInfo();
+		$crud->callback_after_insert(array($this, 'getUserLog'));
+		$crud->callback_after_update(array($this, 'getUserLog'));
 
 		$output = $crud->render();
 		$data['crud'] = get_object_vars($output);
@@ -307,6 +341,7 @@ class Page extends MY_Controller
 		$crud->required_fields(array('Qty_Sent'));
 
 		// Callbacks
+		$this->crud_state = $crud->getState();
 		$crud->callback_read_field('Qty_Sent', function ($value, $row) {
 			if ($value == 0) {
 				return 0;
@@ -319,6 +354,10 @@ class Page extends MY_Controller
 			}
 			return 'Pending';
 		});
+
+		//callback get activitylog
+		$this->curr_id = $crud->getStateInfo();
+		$crud->callback_after_update(array($this, 'getUserLog'));
 
 		$output = $crud->render();
 		$data['crud'] = get_object_vars($output);
@@ -369,7 +408,7 @@ class Page extends MY_Controller
 			}
 		}
 		$newId = $this->DatabaseModel->getAutoId($lastId, 2, 4);
-		return $newId;
+		return '<input id="field-ID" class="form-control" name="ID" type="text" value="' . $newId . '" maxlength="6" readonly>';
 	}
 
 	public function activitylog()
@@ -383,20 +422,75 @@ class Page extends MY_Controller
 		$this->curr_table = 'activitylog';
 		$crud->set_table('activitylog');
 		$crud->set_subject('Activity Log');
-		$crud->columns('user_username', 'action', 'action_time');
-		$crud->display_as('user_username', 'User');
+		$crud->columns('username', 'action', 'action_table', 'action_time');
+		$crud->display_as('username', 'User');
 
 		$crud->order_by('action_time', 'desc');
 		$crud->unset_add();
 		$crud->unset_edit();
 
-
 		$output = $crud->render();
 		$data['crud'] = get_object_vars($output);
 
-
-
 		$this->render_backend('crud_view', $data);
+	}
+
+
+	public function getUserLog($post_array, $primary_key)
+	{
+		//get activitylog
+		$username = $this->session->userdata('username');
+		$logid = $this->getAutoLogID();
+		$ip = $this->getUserIpAddr();
+		$currID = $this->curr_id->primary_key;
+
+		//ambil ID setelah insert/add/clone
+		$this->load->model('DatabaseModel');
+		if ($currID == NULL) {
+			$currID = $this->DatabaseModel->getLastId($this->curr_table);
+		}
+
+		//Capitalize each automatic var
+		$thistable = strtoupper($this->curr_table);
+		$thisstate = strtoupper($this->crud_state);
+
+		$loginfo = array(
+			'ID' => $logid,
+			'username' => $username,
+			'action' => $thisstate,
+			'action_table' => $thistable,
+			'action_detail' => 'Successfully ' . $thisstate . ' ' . $thistable . ' At: ' . $currID . ' From: ' . $ip,
+
+		);
+		$logtable = 'activitylog';
+		$this->DatabaseModel->insert_data($loginfo, $logtable);
+
+		return true;
+	}
+
+	public function getAutoLogID()
+	{
+		$this->load->model('DatabaseModel');
+		$lastId = $this->DatabaseModel->getLastId('activitylog');
+		if ($lastId == NULL) {
+			$lastId = 'AL0000';
+		}
+		$newId = $this->DatabaseModel->getAutoId($lastId, 2, 4);
+		return $newId;
+	}
+
+	public function getUserIpAddr()
+	{
+		if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+			//ip from share internet
+			$ip = $_SERVER['HTTP_CLIENT_IP'];
+		} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+			//ip pass from proxy
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		} else {
+			$ip = $_SERVER['REMOTE_ADDR'];
+		}
+		return $ip;
 	}
 
 	public function profile()

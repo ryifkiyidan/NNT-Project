@@ -50,14 +50,19 @@ class Auth extends MY_Controller
 
                 //get activitylog
                 $logid = $this->getAutoLogID();
+                $ip = $this->getUserIpAddr();
 
                 $loginfo = array(
                     'ID' => $logid,
-                    'user_username' => $data['user']->username,
-                    'action' => 'successfully login',
+                    'username' => $data['user']->username,
+                    'action' => 'Login',
+                    'action_table' => 'Auth',
+                    'action_detail' => 'Successfully Login ' . $ip,
+
                 );
                 $logtable = 'activitylog';
                 $this->DatabaseModel->insert_data($loginfo, $logtable);
+
 
                 redirect('page/dashboard');
             }
@@ -108,6 +113,23 @@ class Auth extends MY_Controller
 
     public function logout()
     {
+
+        //get activitylog
+        $logid = $this->getAutoLogID();
+        $ip = $this->getUserIpAddr();
+
+        $loginfo = array(
+            'ID' => $logid,
+            'username' => $this->session->userdata('username'),
+            'action' => 'Logout',
+            'action_table' => 'Auth',
+            'action_detail' => 'Successfully Logout from ' . $ip,
+
+        );
+        $logtable = 'activitylog';
+        $this->DatabaseModel->insert_data($loginfo, $logtable);
+
+        //destroy sess
         $this->session->sess_destroy();
         redirect('auth');
     }
@@ -121,5 +143,19 @@ class Auth extends MY_Controller
         }
         $newId = $this->DatabaseModel->getAutoId($lastId, 2, 4);
         return $newId;
+    }
+
+    public function getUserIpAddr()
+    {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            //ip from share internet
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            //ip pass from proxy
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
     }
 }
