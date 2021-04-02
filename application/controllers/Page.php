@@ -168,10 +168,23 @@ class Page extends MY_Controller
 
 		$crud->display_as('ID_Company', 'Company Name');
 
+		$crud->columns('PO_Number', 'ID_Company', 'Date', 'Delivered_Schedule', 'Delivered_By', 'Status');
+
 		// Rules
 		$crud->unique_fields('PO_Number');
 		$crud->required_fields(array('PO_Number', 'ID_Company', 'Date', 'Delivered_Schedule'));
 
+		// Callbacks
+		$crud->callback_column('Status', function ($value, $row) {
+			$this->load->model('DatabaseModel');
+			$ods = $this->DatabaseModel->getDatas('orderdetail', array('ID_PurchaseOrder' => $row->ID));
+			foreach ($ods as $od) {
+				if ($od->Qty_Order < $od->Qty_Sent) {
+					return 'Pending';
+				}
+			}
+			return 'Delivered';
+		});
 		//callback get activitylog
 		$this->crud_state = $crud->getState();
 		$this->curr_id = $crud->getStateInfo();
@@ -216,7 +229,11 @@ class Page extends MY_Controller
 		// Callbacks
 		$this->crud_state = $crud->getState();
 		$this->id = $id;
-		$crud->callback_field('ID_PurchaseOrder', function () {
+		$crud->callback_add_field('ID_PurchaseOrder', function () {
+			$po = $this->DatabaseModel->getPO($this->id);
+			return '<select id="field-ID_PurchaseOrder" class="form-control" name="ID_PurchaseOrder" data-placeholder="Select PO Number" readonly><option value="' . $this->id . '">' . $po->PO_Number . '</option></select>';
+		});
+		$crud->callback_edit_field('ID_PurchaseOrder', function () {
 			$po = $this->DatabaseModel->getPO($this->id);
 			return '<select id="field-ID_PurchaseOrder" class="form-control" name="ID_PurchaseOrder" data-placeholder="Select PO Number" readonly><option value="' . $this->id . '">' . $po->PO_Number . '</option></select>';
 		});

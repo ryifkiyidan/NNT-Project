@@ -9,6 +9,13 @@ class DatabaseModel extends CI_Model
 		return $data;
 	}
 
+	public function getDatas($table, $where = null)
+	{
+		if ($where !== null) $this->db->where($where);
+		$data = $this->db->get($table)->result();
+		return $data;
+	}
+
 	public function getPO($id)
 	{
 		$data = $this->db
