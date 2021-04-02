@@ -100,25 +100,13 @@
 	</li>
 
 	<!-- Divider -->
-	<hr class="sidebar-divider">
-
-	<!-- Heading -->
-	<div class="sidebar-heading">
-		Status
-	</div>
+	<hr class="sidebar-divider my-0">
 
 	<!-- Nav Item - Charts -->
-	<li class="nav-item">
-		<a class="nav-link" href="charts.html">
-			<i class="fas fa-fw fa-clock"></i>
-			<span>Pending</span></a>
-	</li>
-
-	<!-- Nav Item - Tables -->
-	<li class="nav-item">
-		<a class="nav-link" href="tables.html">
-			<i class="fas fa-fw fa-truck-loading"></i>
-			<span>Delivered</span></a>
+	<li class="nav-item" id="nav-activitylog">
+		<a class="nav-link" href="<?= base_url('index.php/page/activitylog'); ?>">
+			<i class="fas fa-fw fa-list"></i>
+			<span>Activity Log</span></a>
 	</li>
 
 	<!-- Divider -->
