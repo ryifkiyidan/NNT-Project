@@ -215,6 +215,11 @@ class Page extends MY_Controller
 
 		// Callbacks
 		$this->crud_state = $crud->getState();
+		$this->id = $id;
+		$crud->callback_field('ID_PurchaseOrder', function () {
+			$po = $this->DatabaseModel->getPO($this->id);
+			return '<select id="field-ID_PurchaseOrder" class="form-control" name="ID_PurchaseOrder" data-placeholder="Select PO Number" readonly><option value="' . $this->id . '">' . $po->PO_Number . '</option></select>';
+		});
 
 		//callback get activitylog
 		$this->curr_id = $crud->getStateInfo();
@@ -403,7 +408,7 @@ class Page extends MY_Controller
 			'username' => $username,
 			'action' => $thisstate,
 			'action_table' => $thistable,
-			'action_detail' => 'Successfully ' . $thisstate . ' ' . $thistable . ' At: ' . $currID . ' From: ' . $ip,
+			'action_detail' => 'Successfully ' . $thisstate . ' ' . $thistable . ' ID: ' . $currID . ' From: ' . $ip,
 
 		);
 		$logtable = 'activitylog';
