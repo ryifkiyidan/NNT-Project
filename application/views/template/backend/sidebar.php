@@ -11,7 +11,7 @@
             
                 <?php
 
-                ?>
+				?>
             
                 <a class="nav-item nav-link" href="<?php echo base_url('index.php/page/lesson'); ?>" id = "nav-lesson" >Lesson</a>
                 <a class="nav-item nav-link" href="<?php echo base_url('index.php/page/quiz'); ?>" id = "nav-quiz" >Quiz</a>
@@ -31,103 +31,103 @@
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('index.php/page/dashboard'); ?>">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-cut"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">NNT ADMIN</div>
-    </a>
+	<!-- Sidebar - Brand -->
+	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('index.php/page/dashboard'); ?>">
+		<div class="sidebar-brand-icon rotate-n-15">
+			<i class="fas fa-cut"></i>
+		</div>
+		<div class="sidebar-brand-text mx-3">NNT ADMIN</div>
+	</a>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+	<!-- Divider -->
+	<hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item" id="nav-dashboard">
-        <a class="nav-link" href="<?= base_url('index.php/page/dashboard'); ?>">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li>
+	<!-- Nav Item - Dashboard -->
+	<li class="nav-item" id="nav-dashboard">
+		<a class="nav-link" href="<?= base_url('index.php/page/dashboard'); ?>">
+			<i class="fas fa-fw fa-tachometer-alt"></i>
+			<span>Dashboard</span></a>
+	</li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+	<!-- Divider -->
+	<hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        List
-    </div>
+	<!-- Heading -->
+	<div class="sidebar-heading">
+		List
+	</div>
 
-    <!-- Nav Item Company -->
-    <li class="nav-item" id="nav-company">
-        <a class="nav-link" href="<?= base_url('index.php/page/company'); ?>">
-            <i class="fas fa-fw fa-building"></i>
-            <span>Perusahaan</span></a>
-    </li>
+	<!-- Nav Item Company -->
+	<li class="nav-item" id="nav-company">
+		<a class="nav-link" href="<?= base_url('index.php/page/company'); ?>">
+			<i class="fas fa-fw fa-building"></i>
+			<span>Perusahaan</span></a>
+	</li>
 
-    <!-- Nav Item CusReqSize -->
-    <li class="nav-item" id="nav-cusreqsize">
-        <a class="nav-link" href="<?= base_url('index.php/page/cusreqsize'); ?>">
-            <i class="fas fa-fw fa-ruler-triangle"></i>
-            <span>Pengukuran</span></a>
-    </li>
+	<!-- Nav Item CusReqSize -->
+	<li class="nav-item" id="nav-cusreqsize">
+		<a class="nav-link" href="<?= base_url('index.php/page/cusreqsize'); ?>">
+			<i class="fas fa-fw fa-ruler-triangle"></i>
+			<span>Pengukuran</span></a>
+	</li>
 
-    <!-- Nav Item Product -->
-    <li class="nav-item" id="nav-product">
-        <a class="nav-link" href="<?= base_url('index.php/page/product'); ?>">
-            <i class="fas fa-fw fa-tshirt"></i>
-            <span>Produk</span></a>
-    </li>
+	<!-- Nav Item Fabric -->
+	<li class="nav-item" id="nav-fabric">
+		<a class="nav-link" href="<?= base_url('index.php/page/fabric'); ?>">
+			<i class="fas fa-fw fa-scroll"></i>
+			<span>Bahan Kain</span></a>
+	</li>
 
-    <!-- Nav Item Fabric -->
-    <li class="nav-item" id="nav-fabric">
-        <a class="nav-link" href="<?= base_url('index.php/page/fabric'); ?>">
-            <i class="fas fa-fw fa-scroll"></i>
-            <span>Bahan Kain</span></a>
-    </li>
+	<!-- Nav Item Product -->
+	<li class="nav-item" id="nav-product">
+		<a class="nav-link" href="<?= base_url('index.php/page/product'); ?>">
+			<i class="fas fa-fw fa-tshirt"></i>
+			<span>Produk</span></a>
+	</li>
 
-    <!-- Nav Item PurchaseOrder -->
-    <li class="nav-item" id="nav-purchaseorder">
-        <a class="nav-link" href="<?= base_url('index.php/page/purchaseorder'); ?>">
-            <i class="fas fa-fw fa-shopping-basket"></i>
-            <span>Pesanan Pembelian</span></a>
-    </li>
+	<!-- Nav Item PurchaseOrder -->
+	<li class="nav-item" id="nav-purchaseorder">
+		<a class="nav-link" href="<?= base_url('index.php/page/purchaseorder'); ?>">
+			<i class="fas fa-fw fa-shopping-basket"></i>
+			<span>Pesanan Pembelian</span></a>
+	</li>
 
-    <!-- Nav Item Delivery Order -->
-    <li class="nav-item" id="nav-deliveryorder">
-        <a class="nav-link" href="<?= base_url('index.php/page/deliveryorder'); ?>">
-            <i class="fas fa-fw fa-truck"></i>
-            <span>Surat Jalan</span></a>
-    </li>
+	<!-- Nav Item Delivery Order -->
+	<li class="nav-item" id="nav-deliveryorder">
+		<a class="nav-link" href="<?= base_url('index.php/page/deliveryorder'); ?>">
+			<i class="fas fa-fw fa-truck"></i>
+			<span>Surat Jalan</span></a>
+	</li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+	<!-- Divider -->
+	<hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Status
-    </div>
+	<!-- Heading -->
+	<div class="sidebar-heading">
+		Status
+	</div>
 
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-clock"></i>
-            <span>Pending</span></a>
-    </li>
+	<!-- Nav Item - Charts -->
+	<li class="nav-item">
+		<a class="nav-link" href="charts.html">
+			<i class="fas fa-fw fa-clock"></i>
+			<span>Pending</span></a>
+	</li>
 
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-truck-loading"></i>
-            <span>Delivered</span></a>
-    </li>
+	<!-- Nav Item - Tables -->
+	<li class="nav-item">
+		<a class="nav-link" href="tables.html">
+			<i class="fas fa-fw fa-truck-loading"></i>
+			<span>Delivered</span></a>
+	</li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
+	<!-- Divider -->
+	<hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
+	<!-- Sidebar Toggler (Sidebar) -->
+	<div class="text-center d-none d-md-inline">
+		<button class="rounded-circle border-0" id="sidebarToggle"></button>
+	</div>
 
 </ul>
 <!-- End of Sidebar -->

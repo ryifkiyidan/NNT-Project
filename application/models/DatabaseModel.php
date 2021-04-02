@@ -12,20 +12,21 @@ class DatabaseModel extends CI_Model
 	public function getPO($id)
 	{
 		$data = $this->db
-			->select(array('PO_Number', 'company.Name', 'Date', 'Delivered_Schedule', 'Delivered_By'))
-			->where('PO_Number', $id)
-			->join('company', 'purchaseorder.ID_Company = company.ID')
-			->get('purchaseorder')->row();
+			->select(array('P.PO_Number', 'C.Name', 'P.Date', 'P.Delivered_Schedule', 'P.Delivered_By'))
+			->from('purchaseorder as P')
+			->where('P.ID', $id)
+			->join('company as C', 'P.ID_Company = C.ID')
+			->get()->row();
 		return $data;
 	}
 
 	public function getDO($id)
 	{
 		$data = $this->db
-			->select(array('D.ID', 'D.DO_Number', 'D.PO_Number', 'C.Name', 'C.Location', 'D.Date'))
+			->select(array('D.DO_Number', 'P.PO_Number', 'C.Name', 'C.Location', 'D.Date'))
 			->from('deliveryorder as D')
 			->where('D.ID', $id)
-			->join('purchaseorder as P', 'P.PO_Number = D.PO_Number')
+			->join('purchaseorder as P', 'P.ID = D.ID_PurchaseOrder')
 			->join('company as C', 'P.ID_Company = C.ID')
 			->get()->row();
 		return $data;
@@ -34,32 +35,12 @@ class DatabaseModel extends CI_Model
 	public function getOrderDetail($id)
 	{
 		$data = $this->db
-			->select(array('product.Name', 'Size', 'Qty_Order', 'Qty_Sent'))
-			->where('PO_Number', $id)
-			->join('product', 'product.ID = orderdetail.ID_Product')
-			->get('orderdetail')->result();
+			->select(array('P.Name', 'O.Size', 'O.Qty_Order', 'O.Qty_Sent'))
+			->from('orderdetail as O')
+			->where('O.ID_PurchaseOrder', $id)
+			->join('product as P', 'P.ID = O.ID_Product')
+			->get()->result();
 		return $data;
-	}
-
-	public function getAutoId($id_terakhir, $panjang_kode, $panjang_angka)
-	{
-		// mengambil nilai kode ex: KNS0015 hasil KNS
-		$kode = substr($id_terakhir, 0, $panjang_kode);
-
-		// mengambil nilai angka
-		// ex: KNS0015 hasilnya 0015
-		$angka = substr($id_terakhir, $panjang_kode, $panjang_angka);
-
-		// menambahkan nilai angka dengan 1
-		// kemudian memberikan string 0 agar panjang string angka menjadi 4
-		// ex: angka baru = 6 maka ditambahkan strig 0 tiga kali
-		// sehingga menjadi 0006
-		$angka_baru = str_repeat("0", $panjang_angka - strlen($angka + 1)) . ($angka + 1);
-
-		// menggabungkan kode dengan nilang angka baru
-		$id_baru = $kode . $angka_baru;
-
-		return $id_baru;
 	}
 
 	public function getLastId($table)
@@ -73,37 +54,6 @@ class DatabaseModel extends CI_Model
 		} else {
 			return $data->ID;
 		}
-	}
-
-	// REFERENSI
-	public function getQuizScore($id = NULL)
-	{
-		$this->db->where('username', $id);
-		$data = $this->db->get('score')->result_array();
-
-		return $data;
-	}
-
-	public function getAllQuiz()
-	{
-		$data = $this->db->get('quiz')->result_array();
-		return $data;
-	}
-
-	public function getQuiz($id)
-	{
-		$this->db->where('id', $id);
-		$data = $this->db->get('quiz')->row();
-		return $data;
-	}
-
-	public function deleteQuiz($id)
-	{
-		$this->db->where('quiz_id', $id);
-		$this->db->delete('score');
-
-		$this->db->where('id', $id);
-		$this->db->delete('quiz');
 	}
 
 	public function update_data($where, $data, $table)
