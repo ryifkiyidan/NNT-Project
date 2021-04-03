@@ -53,7 +53,7 @@
 	<div class="container-fluid my-3">
 
 		<div class="text-center mb-3">
-			<img style="float: left;" width=79 height=79 src="<?= base_url('assets/img/nnt_logo.png'); ?>">
+			<div style="position:fixed; z-index: -1;"><img width=79 height=79 src="<?= base_url('assets/img/nnt_logo.png'); ?>"></div>
 			<div style="color: #2980b9">
 				<div><span style='font-size:18.0pt;line-height:120%;font-family:"Times New Roman",serif;'>PT. NANANG NUSANTARA TRITAMA</span></div>
 
