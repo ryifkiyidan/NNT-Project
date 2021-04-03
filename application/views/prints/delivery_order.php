@@ -1,186 +1,135 @@
-<style>
-    /* Font Definitions */
-    @font-face {
-        font-family: SimSun;
-        panose-1: 2 1 6 0 3 1 1 1 1 1;
-    }
+<!doctype html>
+<html lang="en">
 
-    @font-face {
-        font-family: "Cambria Math";
-        panose-1: 2 4 5 3 5 4 6 3 2 4;
-    }
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    @font-face {
-        font-family: Calibri;
-        panose-1: 2 15 5 2 2 2 4 3 2 4;
-    }
+	<!-- Bootstrap CSS -->
+	<link href="<?= base_url('assets/css/bootstrap.css'); ?>" rel="stylesheet">
 
-    @font-face {
-        font-family: "\@SimSun";
-        panose-1: 2 1 6 0 3 1 1 1 1 1;
-    }
+	<title>Print Surat Jalan</title>
+	<style>
+		.table {
+			width: 100%;
+			border-color: #2980b9;
+		}
 
-    /* Style Definitions */
-    p.MsoNormal,
-    li.MsoNormal,
-    div.MsoNormal {
-        margin-top: 0in;
-        margin-right: 0in;
-        margin-bottom: 10.0pt;
-        margin-left: 0in;
-        line-height: 120%;
-        font-size: 10.5pt;
-        font-family: "Calibri", sans-serif;
-    }
+		.container-1 {
+			display: flex;
+		}
 
-    .MsoChpDefault {
-        font-size: 10.5pt;
-        font-family: "Calibri", sans-serif;
-    }
+		.container-1 div {
+			/* border: 1px #ccc solid; */
+			padding: 0px;
+			align-items: center;
+		}
 
-    .MsoPapDefault {
-        margin-bottom: 10.0pt;
-        line-height: 120%;
-    }
+		.box-1 {
+			flex: 1.2;
+		}
 
-    @page WordSection1 {
-        size: 595.35pt 841.95pt;
-        margin: 1.0in 1.0in 1.0in 1.0in;
-    }
+		.box-2 {
+			flex: 1;
+		}
 
-    .MsoMargin {
-        margin-bottom: 0.1rem;
-    }
+		.box-3 {
+			flex: 1.2;
+		}
 
-    div.WordSection1 {
-        page: WordSection1;
-    }
+		.border {
+			border-color: #2980b9;
+		}
+	</style>
+</head>
 
-    .table {
-        width: 100%;
-    }
+<body>
 
-    .container-1 {
-        display: flex;
-    }
+	<?php
+	$do = $deliveryorder;
+	?>
 
-    .container-1 div {
-        /* border: 1px #ccc solid; */
-        padding: 0px;
-        align-items: center;
-    }
+	<div class="container-fluid my-3">
 
-    .box-1 {
-        flex: 1.2;
-    }
+		<div class="text-center mb-3">
+			<img style="float: left;" width=79 height=79 src="<?= base_url('assets/img/nnt_logo.png'); ?>">
+			<div style="color: #2980b9">
+				<div><span style='font-size:18.0pt;line-height:120%;font-family:"Times New Roman",serif;'>PT. NANANG NUSANTARA TRITAMA</span></div>
 
-    .box-2 {
-        flex: 1;
-    }
+				<div class="m-0" style='font-size:small; line-height:120%;font-family:"Arial",sans-serif;'>Jl. Kebon Jeruk 19 No. 100 Jakarta Kota 11160</div>
 
-    .box-3 {
-        flex: 1.2;
-    }
-</style>
+				<div class="m-0" style='font-size:small; line-height:120%;font-family:"Arial",sans-serif;'>Telp. : (021) 649 9545 Fax. : (021) 649 8622</div>
 
-<?php
-$do = $deliveryorder;
-?>
+				<div class="m-0" style='font-size:small; line-height:120%; font-family:"Arial",sans-serif'>NPWP 02.063.192.5-032.000</div>
+			</div>
+		</div>
 
-<div class=WordSection1>
+		<hr style="border: 1px solid #2980b9; margin: 0.2rem 0 !important;">
+		<hr style="border: 1px solid #2980b9; margin: 0 0.5rem !important; margin-bottom: 0.2rem !important; opacity: 0.5 !important;">
 
-    <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><img width=79 height=79 src="https://im7.ezgif.com/tmp/ezgif-7-b378ab115409.png" align=left hspace=12><span style='font-size:18.0pt;line-height:120%;font-family:"Times New Roman",serif;
-color:#1F4E79'>PT. NANANG NUSANTARA TRITAMA</span></p>
+		<div class="d-flex">
+			<div class="box-1">
+				<div><span style="color:#2980b9; font-size: small;">Kepada Yth,</span></div>
+				<div style="border-bottom: 1px; text-decoration: none;"><span style="font-size: small"><?= $do->Name ?></span></div>
+				<div style="border-bottom: 1px; text-decoration: none;"><span style=" font-size: small">PO. NO. <?= $do->PO_Number ?></span></div>
+				<div style="border-bottom: 1px; text-decoration: none; margin-right: 60px;"><span style=" font-size: small">Di <?= $do->Location ?></span></div>
+			</div>
+			<div class="box-2 d-flex align-self-center flex-column">
+				<div style="text-align:center;"><span style="color:#2980b9"><u><span style="font-size:18pt;"><b>SURAT JALAN</b></span></u></span></div>
+				<div style="text-align:center; font-size: small;"><span style="color:#2980b9;">No. : </span><span> <?= $do->DO_Number ?></span></div>
+			</div>
+			<div class="box-3 text-end">
+				<div class="text-end" style="margin-left:30px; font-size: small;"><span style="color:#2980b9;">Jakarta<b>,</b></span> <span><?= date('j F Y', strtotime($do->Date)) ?></span></div>
+			</div>
+		</div>
 
-    <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><span style='font-size:11.0pt;line-height:120%;font-family:"Arial",sans-serif;
-color:#1F4E79'>Jl. Kebon Jeruk 19 No. 100 Jakarta Kota 11160</span></p>
+		<table class="table mt-2">
+			<thead>
+				<tr style="color: #2980b9;">
+					<th class="border border-info text-center" scope="col">No.</th>
+					<th class="border border-info text-center" scope="col">Banyaknya</th>
+					<th class="border border-info text-center" scope="col">Nama Barang</th>
+					<th class="border border-info text-center" scope="col">Keterangan</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php $i = 1; ?>
+				<?php foreach ($orderdetail as $od) : ?>
+					<tr>
+						<th class="border-info border-start border-end border-bottom-0 text-center" scope="row"><?= $i++ ?>.</th>
+						<td class="border-info border-end border-bottom-0 text-center"><?= $od->Qty_Sent ?> PCS</td>
+						<td class="border-info border-end border-bottom-0"><?= $od->Name ?></td>
+						<td class="border-info border-end border-bottom-0"></td>
+					</tr>
+				<?php endforeach; ?>
+				<tr>
+					<th class="border-info border-start border-end border-bottom"></th>
+					<td class="border-info border-end border-bottom"></td>
+					<td class="border-info border-end border-bottom"></td>
+					<td class="border-info border-end border-bottom"></td>
+				</tr>
+			</tbody>
+		</table>
 
-    <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><span style='font-size:11.0pt;line-height:120%;font-family:"Arial",sans-serif;
-color:#1F4E79'>Telp. : (021) 649 9545 Fax. : (021) 649 8622</span></p>
+		<div class="d-flex justify-content-between text-center my-5">
+			<div style="color:#2980b9; font-size:small;">
+				<div>Penerima</div>
+				<div>Tanda Tangan / Cap</div>
+				<div style="margin-top: 5rem;"><span style="color:#2980b9;">(......................................)</span></div>
+			</div>
+			<div style="color:#2980b9; font-size:small;">
+				<div>Hormat Kami,</div>
+				<div style="margin-top: 6rem;"><span style="color:#2980b9">(......................................)</span></div>
+			</div>
+		</div>
 
-    <div style='border:none;border-bottom:double #1F4E79 6.0pt;padding:0in 0in 1.0pt 0in'>
+	</div>
 
-        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-border:none;padding:0in'><span style='font-size:11.0pt;line-height:120%;
-font-family:"Arial",sans-serif;color:#1F4E79'>NPWP 02.063.192.5-032.000</span></p>
+	<!-- Optional JavaScript; choose one of the two! -->
 
-        <p class=MsoNormal style='margin-bottom:0in;border:none;padding:0in'><span style='line-height:120%;font-family:"Arial",sans-serif;color:#1F4E79'></span></p>
+	<!-- Option 1: Bootstrap Bundle with Popper -->
+	<script src="<?= base_url('assets/js/bootstrap.bundle.js'); ?>></script>
+</body>
 
-    </div>
-
-    <div class="container-1">
-        <div class="box-1">
-            <p style="margin-left:40px"><span style="color:#2980b9; font-size: small;">Kepada Yth,</span></p>
-            <p style="border-bottom: 1px dotted #000; text-decoration: none;"><span style="font-size: small"><?= $do->Name ?></span></p>
-            <p style="border-bottom: 1px dotted #000; text-decoration: none;"><span style=" font-size: small">PO. NO. <?= $do->PO_Number ?></span></p>
-            <p style="border-bottom: 1px dotted #000; text-decoration: none; margin-right: 60px;"><span style=" font-size: small">DI <?= $do->Location ?></span></p>
-        </div>
-        <div class="box-2">
-            <div style="text-align:center; margin-top: 80px;"><span style="color:#2980b9"><u><span style="font-size:22">SURAT JALAN</span></u></span></div>
-            <div style="text-align:center;"><span style="color:#2980b9;">No. : </span><span style=" font-size:small"> <?= $do->DO_Number ?></span></div>
-        </div>
-        <div class="box-3">
-            <p style="margin-left:30px"><span style="color:#2980b9; font-size: small;">Jakarta<strong>,</strong></span><span> <?= date('j F Y', strtotime($do->Date)) ?></span></p>
-        </div>
-    </div>
-
-    <table class="table table-bordered border-primary" border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
-        <tr>
-            <td><b><span style='font-size:11.0pt;font-family:"Times New Roman",serif;
-  color:#1F4E79'>No.</span></b></p>
-            </td>
-            <td><b><span style='font-size:11.0pt;font-family:"Times New Roman",serif;
-  color:#1F4E79'>Banyaknya</span></b></p>
-            </td>
-            <td><b><span style='font-size:11.0pt;font-family:"Times New Roman",serif;
-  color:#1F4E79'>Nama Barang</span></b></p>
-            </td>
-            <td><b><span style='font-size:11.0pt;font-family:"Times New Roman",serif;
-  color:#1F4E79'>Keterangan</span></b></p>
-            </td>
-        </tr>
-        <?php $i = 1; ?>
-        <?php foreach ($orderdetail as $od) : ?>
-            <tr>
-                <td>
-                    <p><span style='font-family:"Arial",sans-serif'><?= $i++ ?>.</span></p>
-                </td>
-                <td><span style='font-family:"Arial",sans-serif'><?= $od->Qty_Sent ?> PCS</span></p>
-                </td>
-                <td><span style='font-family:"Arial",sans-serif'><?= $od->Name ?></span></p>
-                </td>
-                <td><span style='font-family:"Arial",sans-serif'></span></p>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-        <tr>
-            <td><span style='font-family:"Arial",sans-serif'></span></p>
-            </td>
-            <td>
-                <p><span style='font-family:"Arial",sans-serif'></span></p>
-            </td>
-            <td>
-                <p><span style='font-family:"Arial",sans-serif'></span></p>
-            </td>
-            <td>
-
-            </td>
-        </tr>
-        <p><span style='font-family:"Arial",sans-serif'></span></p>
-    </table>
-
-
-
-    <div class="container-1">
-        <div class="box-1">
-            <div style="margin-left:50px;color:#2980b9;margin-top:2rem;font-size:small;">Penerima</div>
-            <div style="color:#2980b9;font-size:small;margin-left:25px">Tanda Tangan / Cap</div>
-            <div style="margin-top: 62px;"><span style="color:#2980b9;">(......................................)</span></div>
-        </div>
-        <div class="box-3">
-            <div style="text-align:right; margin-right:45px; color:#2980b9;margin-top:2rem;font-size:small;">Hormat Kami,</div>
-            <div style="text-align:right; margin-top:80px"><span style="color:#2980b9">(......................................)</span></div>
-        </div>
-    </div>
-
-</div>
+</html>
