@@ -3,9 +3,9 @@
 
     <div class="col-xl-10 col-lg-12 col-md-9">
         <?php
-            if($this->session->flashdata('message')){ 
-                echo '<div class="alert alert-danger">'.$this->session->flashdata('message').'</div>'; 
-            }
+        if ($this->session->flashdata('message')) {
+            echo '<div class="alert alert-danger">' . $this->session->flashdata('message') . '</div>';
+        }
         ?>
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
@@ -16,22 +16,12 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Admin Panel</h1>
                             </div>
-                            <form class="user" method = "post" action = "<?php echo base_url('index.php/auth/login'); ?>">
+                            <form class="user" method="post" action="<?php echo base_url('index.php/auth/login'); ?>">
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user"
-                                        name="username" aria-describedby="emailHelp"
-                                        placeholder="Username">
+                                    <input type="text" class="form-control form-control-user" name="username" aria-describedby="emailHelp" placeholder="Username">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-user"
-                                        name="password" placeholder="Password">
-                                </div>
-                                <div class="form-group">
-                                    <div class="custom-control custom-checkbox small">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                                        <label class="custom-control-label" for="customCheck">Remember
-                                            Me</label>
-                                    </div>
+                                    <input type="password" class="form-control form-control-user" name="password" placeholder="Password">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Login
