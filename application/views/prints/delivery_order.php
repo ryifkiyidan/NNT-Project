@@ -55,7 +55,34 @@
     div.WordSection1 {
         page: WordSection1;
     }
+
+    .table {
+        width: 100%;
+    }
+
+    .container-1 {
+        display: flex;
+    }
+
+    .container-1 div {
+        /* border: 1px #ccc solid; */
+        padding: 0px;
+        align-items: center;
+    }
+
+    .box-1 {
+        flex: 1.2;
+    }
+
+    .box-2 {
+        flex: 1;
+    }
+
+    .box-3 {
+        flex: 1.2;
+    }
 </style>
+
 <?php
 $do = $deliveryorder;
 ?>
@@ -81,17 +108,26 @@ font-family:"Arial",sans-serif;color:#1F4E79'>NPWP 02.063.192.5-032.000</span></
 
     </div>
 
-    <p style="margin-left:40px"><span style="color:#2980b9">Kepada Yth &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong> &nbsp; </strong>Jakarta<strong>,</strong></span><span> <?= date('j F Y', strtotime($do->Date)) ?> </span></p>
+    <div class="container-1">
+        <div class="box-1">
+            <p style="margin-left:40px"><span style="color:#2980b9; font-size: small;">Kepada Yth,</span></p>
+            <p style="border-bottom: 1px dotted #000; text-decoration: none;"><span style="font-size: small"><?= $do->Name ?></span></p>
+            <p style="border-bottom: 1px dotted #000; text-decoration: none;"><span style=" font-size: small">PO. NO. <?= $do->PO_Number ?></span></p>
+            <p style="border-bottom: 1px dotted #000; text-decoration: none; margin-right: 60px;"><span style=" font-size: small">DI <?= $do->Location ?></span></p>
+        </div>
+        <div class="box-2">
+            <div style="text-align:center; margin-top: 80px;"><span style="color:#2980b9"><u><span style="font-size:22">SURAT JALAN</span></u></span></div>
+            <div style="text-align:center;"><span style="color:#2980b9;">No. : </span><span style=" font-size:small"> <?= $do->DO_Number ?></span></div>
+        </div>
+        <div class="box-3">
+            <p style="margin-left:30px"><span style="color:#2980b9; font-size: small;">Jakarta<strong>,</strong></span><span> <?= date('j F Y', strtotime($do->Date)) ?></span></p>
+        </div>
+    </div>
 
-    <p><span><?= $do->Name ?></span></p>
 
-    <p><span>PO. NO. <?= $do->PO_Number ?></span></p>
 
-    <p><span>DI <?= $do->Location ?></span></p>
 
-    <p style="text-align:center"><span style="color:#2980b9"><u><strong><span style="font-size:26px">SURAT JALAN</span></strong></u></span></p>
 
-    <p style="text-align:center"><span style="color:#2980b9"><strong>NO. : </strong></span><span> <?= $do->DO_Number ?></span></p>
 
     <table class=MsoTableGridLight border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
         <tr style='height:31.9pt'>
@@ -172,12 +208,18 @@ font-family:"Arial",sans-serif;color:#1F4E79'>NPWP 02.063.192.5-032.000</span></
   line-height:normal'><span style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
     </table>
 
-    <div style="margin-left:40px;color:#2980b9;margin-top:5rem;">&nbsp; Penerima &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Hormat Kami,</div>
 
-    <div style="margin: 0;color:#2980b9;">&nbsp; &nbsp; Tanda Tangan / Cap</div>
 
-    <p><span style="color:#2980b9">&nbsp; &nbsp;</span></p>
-
-    <p><span style="color:#2980b9">(......................................)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(......................................)</span></p>
+    <div class="container-1">
+        <div class="box-1">
+            <div style="margin-left:50px;color:#2980b9;margin-top:2rem;font-size:small;">Penerima</div>
+            <div style="color:#2980b9;font-size:small;margin-left:25px">Tanda Tangan / Cap</div>
+            <div style="margin-top: 62px;"><span style="color:#2980b9;">(......................................)</span></div>
+        </div>
+        <div class="box-3">
+            <div style="text-align:right; margin-right:45px; color:#2980b9;margin-top:2rem;font-size:small;">Hormat Kami,</div>
+            <div style="text-align:right; margin-top:80px"><span style="color:#2980b9">(......................................)</span></div>
+        </div>
+    </div>
 
 </div>
