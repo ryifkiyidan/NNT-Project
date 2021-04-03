@@ -104,7 +104,7 @@ color:#1F4E79'>Telp. : (021) 649 9545 Fax. : (021) 649 8622</span></p>
 border:none;padding:0in'><span style='font-size:11.0pt;line-height:120%;
 font-family:"Arial",sans-serif;color:#1F4E79'>NPWP 02.063.192.5-032.000</span></p>
 
-        <p class=MsoNormal style='margin-bottom:0in;border:none;padding:0in'><span style='line-height:120%;font-family:"Arial",sans-serif;color:#1F4E79'>&nbsp;</span></p>
+        <p class=MsoNormal style='margin-bottom:0in;border:none;padding:0in'><span style='line-height:120%;font-family:"Arial",sans-serif;color:#1F4E79'></span></p>
 
     </div>
 
@@ -124,88 +124,49 @@ font-family:"Arial",sans-serif;color:#1F4E79'>NPWP 02.063.192.5-032.000</span></
         </div>
     </div>
 
-
-
-
-
-
-    <table class=MsoTableGridLight border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
-        <tr style='height:31.9pt'>
-            <td width=42 style='width:31.25pt;border:solid #4472C4 1.0pt;padding:0in 5.4pt 0in 5.4pt;
-  height:31.9pt'>
-                <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><b><span style='font-size:11.0pt;font-family:"Times New Roman",serif;
+    <table class="table table-bordered border-primary" border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+        <tr>
+            <td><b><span style='font-size:11.0pt;font-family:"Times New Roman",serif;
   color:#1F4E79'>No.</span></b></p>
             </td>
-            <td width=102 style='width:76.5pt;border:solid #4472C4 1.0pt;border-left:
-  none;padding:0in 5.4pt 0in 5.4pt;height:31.9pt'>
-                <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><b><span style='font-size:11.0pt;font-family:"Times New Roman",serif;
+            <td><b><span style='font-size:11.0pt;font-family:"Times New Roman",serif;
   color:#1F4E79'>Banyaknya</span></b></p>
             </td>
-            <td width=342 style='width:256.5pt;border:solid #4472C4 1.0pt;border-left:
-  none;padding:0in 5.4pt 0in 5.4pt;height:31.9pt'>
-                <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><b><span style='font-size:11.0pt;font-family:"Times New Roman",serif;
+            <td><b><span style='font-size:11.0pt;font-family:"Times New Roman",serif;
   color:#1F4E79'>Nama Barang</span></b></p>
             </td>
-            <td width=115 style='width:86.6pt;border:solid #4472C4 1.0pt;border-left:
-  none;padding:0in 5.4pt 0in 5.4pt;height:31.9pt'>
-                <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><b><span style='font-size:11.0pt;font-family:"Times New Roman",serif;
+            <td><b><span style='font-size:11.0pt;font-family:"Times New Roman",serif;
   color:#1F4E79'>Keterangan</span></b></p>
             </td>
         </tr>
         <?php $i = 1; ?>
         <?php foreach ($orderdetail as $od) : ?>
-            <tr style='height:22.0pt'>
-                <td width=42 style='width:31.25pt;border-top:none;border-left:solid #4472C4 1.0pt;
-  border-bottom:none;border-right:solid #4472C4 1.0pt;padding:0in 5.4pt 0in 5.4pt;
-  height:22.0pt'>
-                    <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><span style='font-family:"Arial",sans-serif'><?= $i++ ?>.</span></p>
+            <tr>
+                <td>
+                    <p><span style='font-family:"Arial",sans-serif'><?= $i++ ?>.</span></p>
                 </td>
-                <td width=102 style='width:76.5pt;border:none;border-right:solid #4472C4 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt;height:22.0pt'>
-                    <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><span style='font-family:"Arial",sans-serif'><?= $od->Qty_Sent ?> PCS</span></p>
+                <td><span style='font-family:"Arial",sans-serif'><?= $od->Qty_Sent ?> PCS</span></p>
                 </td>
-                <td width=342 style='width:256.5pt;border:none;border-right:solid #4472C4 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt;height:22.0pt'>
-                    <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span style='font-family:"Arial",sans-serif'><?= $od->Name ?></span></p>
+                <td><span style='font-family:"Arial",sans-serif'><?= $od->Name ?></span></p>
                 </td>
-                <td width=115 style='width:86.6pt;border:none;border-right:solid #4472C4 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt;height:22.0pt'>
-                    <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><span style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
+                <td><span style='font-family:"Arial",sans-serif'></span></p>
                 </td>
             </tr>
         <?php endforeach; ?>
-        <tr style='height:26.5pt'>
-            <td width=42 style='width:31.25pt;border:solid #4472C4 1.0pt;border-top:none;
-  padding:0in 5.4pt 0in 5.4pt;height:26.5pt'>
-                <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><span style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
+        <tr>
+            <td><span style='font-family:"Arial",sans-serif'></span></p>
             </td>
-            <td width=102 style='width:76.5pt;border-top:none;border-left:none;
-  border-bottom:solid #4472C4 1.0pt;border-right:solid #4472C4 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt;height:26.5pt'>
-                <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><span style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
+            <td>
+                <p><span style='font-family:"Arial",sans-serif'></span></p>
             </td>
-            <td width=342 style='width:256.5pt;border-top:none;border-left:none;
-  border-bottom:solid #4472C4 1.0pt;border-right:solid #4472C4 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt;height:26.5pt'>
-                <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
+            <td>
+                <p><span style='font-family:"Arial",sans-serif'></span></p>
             </td>
-            <td width=115 style='width:86.6pt;border-top:none;border-left:none;
-  border-bottom:solid #4472C4 1.0pt;border-right:solid #4472C4 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt;height:26.5pt'>
+            <td>
 
             </td>
         </tr>
-        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><span style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
+        <p><span style='font-family:"Arial",sans-serif'></span></p>
     </table>
 
 
