@@ -49,6 +49,13 @@
 			<span>Dashboard</span></a>
 	</li>
 
+	<!-- Nav Item - Charts -->
+	<li class="nav-item" id="nav-activitylog">
+		<a class="nav-link" href="<?= base_url('index.php/page/activitylog'); ?>">
+			<i class="fas fa-fw fa-list"></i>
+			<span>Activity Log</span></a>
+	</li>
+
 	<!-- Divider -->
 	<hr class="sidebar-divider">
 
@@ -102,12 +109,7 @@
 	<!-- Divider -->
 	<hr class="sidebar-divider my-0">
 
-	<!-- Nav Item - Charts -->
-	<li class="nav-item" id="nav-activitylog">
-		<a class="nav-link" href="<?= base_url('index.php/page/activitylog'); ?>">
-			<i class="fas fa-fw fa-list"></i>
-			<span>Activity Log</span></a>
-	</li>
+
 
 	<!-- Divider -->
 	<hr class="sidebar-divider d-none d-md-block">
