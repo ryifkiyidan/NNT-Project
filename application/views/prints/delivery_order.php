@@ -21,13 +21,12 @@
 		}
 
 		.container-1 div {
-			/* border: 1px #ccc solid; */
 			padding: 0px;
 			align-items: center;
 		}
 
 		.box-1 {
-			flex: 1.2;
+			flex: 1;
 		}
 
 		.box-2 {
@@ -35,7 +34,7 @@
 		}
 
 		.box-3 {
-			flex: 1.2;
+			flex: 1;
 		}
 
 		.border {
@@ -45,7 +44,6 @@
 </head>
 
 <body>
-
 	<?php
 	$do = $deliveryorder;
 	?>
