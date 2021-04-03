@@ -13,32 +13,10 @@
 	<style>
 		.table {
 			width: 100%;
-			border-color: #2980b9;
 		}
 
-		.container-1 {
-			display: flex;
-		}
-
-		.container-1 div {
-			padding: 0px;
-			align-items: center;
-		}
-
-		.box-1 {
+		.box {
 			flex: 1;
-		}
-
-		.box-2 {
-			flex: 1;
-		}
-
-		.box-3 {
-			flex: 1;
-		}
-
-		.border {
-			border-color: #2980b9;
 		}
 	</style>
 </head>
@@ -67,17 +45,17 @@
 		<hr style="border: 1px solid #2980b9; margin: 0 0.5rem !important; margin-bottom: 0.2rem !important; opacity: 0.5 !important;">
 
 		<div class="d-flex">
-			<div class="box-1">
+			<div class="box">
 				<div><span style="color:#2980b9; font-size: small;">Kepada Yth,</span></div>
 				<div style="border-bottom: 1px; text-decoration: none;"><span style="font-size: small"><?= $do->Name ?></span></div>
 				<div style="border-bottom: 1px; text-decoration: none;"><span style=" font-size: small">PO. NO. <?= $do->PO_Number ?></span></div>
 				<div style="border-bottom: 1px; text-decoration: none; margin-right: 60px;"><span style=" font-size: small">Di <?= $do->Location ?></span></div>
 			</div>
-			<div class="box-2 d-flex align-self-center flex-column">
+			<div class="box d-flex align-self-center flex-column">
 				<div style="text-align:center;"><span style="color:#2980b9"><u><span style="font-size:18pt;"><b>SURAT JALAN</b></span></u></span></div>
 				<div style="text-align:center; font-size: small;"><span style="color:#2980b9;">No. : </span><span> <?= $do->DO_Number ?></span></div>
 			</div>
-			<div class="box-3 text-end">
+			<div class="box text-end">
 				<div class="text-end" style="margin-left:30px; font-size: small;"><span style="color:#2980b9;">Jakarta<b>,</b></span> <span><?= date('j F Y', strtotime($do->Date)) ?></span></div>
 			</div>
 		</div>
