@@ -179,7 +179,7 @@ class Page extends MY_Controller
 			$this->load->model('DatabaseModel');
 			$ods = $this->DatabaseModel->getDatas('orderdetail', array('ID_PurchaseOrder' => $row->ID));
 			foreach ($ods as $od) {
-				if ($od->Qty_Order < $od->Qty_Sent) {
+				if ($od->Qty_Sent < $od->Qty_Order) {
 					return 'Pending';
 				}
 			}
