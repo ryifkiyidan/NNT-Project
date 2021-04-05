@@ -222,6 +222,7 @@ class Page extends MY_Controller
 		$crud->where('ID_PurchaseOrder', $id);
 
 		$crud->unset_fields('Qty_Sent');
+		$crud->unset_read();
 
 		// Rules
 		$crud->required_fields(array('ID_Product', 'ID_PurchaseOrder', 'Qty_Order', 'Size'));
@@ -340,6 +341,7 @@ class Page extends MY_Controller
 		$crud->where('ID_PurchaseOrder', $do->ID_PurchaseOrder);
 
 		$crud->unset_add();
+		$crud->unset_read();
 		$crud->unset_edit_fields('Qty_Order', 'ID', 'ID_PurchaseOrder');
 		$crud->field_type('ID_Product', 'readonly');
 		$crud->field_type('Size', 'readonly');
