@@ -3,11 +3,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Page extends MY_Controller
 {
 
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->library('grocery_CRUD');
+		$this->load->model('DatabaseModel');
+	}
+
 	public function dashboard()
 	{
 		$data['curr_page'] = 'dashboard';
 
-		$this->load->library('grocery_CRUD');
 		$crud = new grocery_CRUD();
 		$crud->set_table('company');
 		$crud->set_theme('tablestrap4');
@@ -21,7 +27,6 @@ class Page extends MY_Controller
 	{
 		$data['curr_page'] = 'company';
 
-		$this->load->library('grocery_CRUD');
 		$crud = new grocery_CRUD();
 		$crud->set_theme('tablestrap4');
 
@@ -30,6 +35,7 @@ class Page extends MY_Controller
 		$crud->set_subject('Company');
 
 		// Rules
+		$crud->columns('Name', 'Location', 'Phone_Number', 'Fax_Number');
 		$crud->required_fields(array('Name', 'Location', 'Phone_Number'));
 
 		// Callbacks
@@ -52,7 +58,6 @@ class Page extends MY_Controller
 	{
 		$data['curr_page'] = 'cusreqsize';
 
-		$this->load->library('grocery_CRUD');
 		$crud = new grocery_CRUD();
 		$crud->set_theme('tablestrap4');
 
@@ -87,7 +92,6 @@ class Page extends MY_Controller
 	{
 		$data['curr_page'] = 'fabric';
 
-		$this->load->library('grocery_CRUD');
 		$crud = new grocery_CRUD();
 		$crud->set_theme('tablestrap4');
 
@@ -114,7 +118,6 @@ class Page extends MY_Controller
 	{
 		$data['curr_page'] = 'product';
 
-		$this->load->library('grocery_CRUD');
 		$crud = new grocery_CRUD();
 		$crud->set_theme('tablestrap4');
 
@@ -149,7 +152,6 @@ class Page extends MY_Controller
 	{
 		$data['curr_page'] = 'purchaseorder';
 
-		$this->load->library('grocery_CRUD');
 		$crud = new grocery_CRUD();
 		$crud->set_theme('tablestrap4');
 
@@ -176,7 +178,7 @@ class Page extends MY_Controller
 
 		// Callbacks
 		$crud->callback_column('Status', function ($value, $row) {
-			$this->load->model('DatabaseModel');
+
 			$ods = $this->DatabaseModel->getDatas('orderdetail', array('ID_PurchaseOrder' => $row->ID));
 			foreach ($ods as $od) {
 				if ($od->Qty_Sent < $od->Qty_Order) {
@@ -201,9 +203,7 @@ class Page extends MY_Controller
 	{
 		$data['curr_page'] = 'purchaseorder';
 
-		$this->load->model('DatabaseModel');
 
-		$this->load->library('grocery_CRUD');
 		$crud = new grocery_CRUD();
 		$crud->set_theme('tablestrap4');
 
@@ -217,7 +217,7 @@ class Page extends MY_Controller
 		$crud->set_relation('ID_Product', 'product', 'Name');
 		$crud->set_relation('ID_PurchaseOrder', 'purchaseorder', 'PO_Number');
 
-		$crud->columns('ID_Product', 'Qty_Order', 'Size');
+		$crud->columns('ID_Product', 'Size', 'Unit_Price', 'Qty_Order', 'Amount');
 
 		$crud->where('ID_PurchaseOrder', $id);
 
@@ -236,6 +236,16 @@ class Page extends MY_Controller
 		$crud->callback_edit_field('ID_PurchaseOrder', function () {
 			$po = $this->DatabaseModel->getPO($this->id);
 			return '<select id="field-ID_PurchaseOrder" class="form-control" name="ID_PurchaseOrder" data-placeholder="Select PO Number" readonly><option value="' . $this->id . '">' . $po->PO_Number . '</option></select>';
+		});
+		$crud->callback_column('Size', function ($row, $value) {
+			return $this->DatabaseModel->getData('product', array('ID' => $value->ID_Product))->Size;
+		});
+		$crud->callback_column('Unit_Price', function ($row, $value) {
+			return 'Rp. ' . $this->DatabaseModel->getData('product', array('ID' => $value->ID_Product))->Price;
+		});
+		$crud->callback_column('Amount', function ($row, $value) {
+			$product = $this->DatabaseModel->getData('product', array('ID' => $value->ID_Product));
+			return 'Rp. ' . $product->Price * $value->Qty_Order;
 		});
 
 		//callback get activitylog
@@ -256,7 +266,6 @@ class Page extends MY_Controller
 	{
 		$data['curr_page'] = 'deliveryorder';
 
-		$this->load->library('grocery_CRUD');
 		$crud = new grocery_CRUD();
 		$crud->set_theme('tablestrap4');
 
@@ -284,7 +293,7 @@ class Page extends MY_Controller
 		// Callbacks
 		$this->crud_state = $crud->getState();
 		$crud->callback_column('Company_Name', function ($value, $row) {
-			$this->load->model('DatabaseModel');
+
 			$po = $this->DatabaseModel->getPO($row->ID_PurchaseOrder);
 			return $po->Name;
 		});
@@ -304,12 +313,10 @@ class Page extends MY_Controller
 	{
 		$data['curr_page'] = 'deliveryorder';
 
-		$this->load->model('DatabaseModel');
 		$do = $this->DatabaseModel->getData('deliveryorder', array('ID' => $id));
 		$po = $this->DatabaseModel->getPO($do->ID_PurchaseOrder);
 		$do->Name = $po->Name;
 
-		$this->load->library('grocery_CRUD');
 		$crud = new grocery_CRUD();
 		$crud->set_theme('tablestrap4');
 
@@ -354,6 +361,9 @@ class Page extends MY_Controller
 			}
 			return 'Pending';
 		});
+		$crud->callback_column('Size', function ($row, $value) {
+			return $this->DatabaseModel->getData('product', array('ID' => $value->ID_Product))->Size;
+		});
 
 		//callback get activitylog
 		$this->curr_id = $crud->getStateInfo();
@@ -372,7 +382,6 @@ class Page extends MY_Controller
 	{
 		$data['curr_page'] = 'deliveryorder';
 
-		$this->load->model('DatabaseModel');
 		$do = $this->DatabaseModel->getData('deliveryorder', array('ID' => $id));
 		$data['deliveryorder'] = $this->DatabaseModel->getDO($id);
 		$data['orderdetail'] = $this->DatabaseModel->getOrderDetail($do->ID_PurchaseOrder);
@@ -383,7 +392,6 @@ class Page extends MY_Controller
 	{
 		$data['curr_page'] = 'activitylog';
 
-		$this->load->library('grocery_CRUD');
 		$crud = new grocery_CRUD();
 		$crud->set_theme('tablestrap4');
 
@@ -412,7 +420,6 @@ class Page extends MY_Controller
 		$currID = $this->curr_id->primary_key;
 
 		//ambil ID setelah insert/add/clone
-		$this->load->model('DatabaseModel');
 		if ($currID == NULL) {
 			$currID = $this->DatabaseModel->getLastId($this->curr_table);
 		}
@@ -451,7 +458,6 @@ class Page extends MY_Controller
 	public function profile()
 	{
 		$this->load->model('UserModel');
-		$this->load->model('DatabaseModel');
 
 		$username = $this->session->userdata('username');
 		$role = $this->session->userdata('role');
