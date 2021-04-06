@@ -72,10 +72,6 @@ class Page extends MY_Controller
 		// Rules
 		$crud->required_fields(array('ID_Company', 'Name', 'Gender'));
 
-		//unset crud func
-		$crud->unset_export();
-		$crud->unset_print();
-
 		// Callbacks
 		$this->crud_state = $crud->getState();
 

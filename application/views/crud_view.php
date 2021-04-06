@@ -36,7 +36,12 @@ if (isset($extra) && ($state === 'list' || $state === 'success')) :
 <?php
 endif;
 ?>
+
 <div class="container-fluid mb-5 pb-5">
+	<div class="mb-3 text-right">
+		<a href="button" class="btn btn-outline-secondary"><i class="fad fa-search-plus"></i> Show All</a>
+	</div>
+
 	<?php if ($curr_page === 'activitylog') : ?>
 		<h1><?= 'Activity Log'; ?></h1>
 	<?php endif; ?>
