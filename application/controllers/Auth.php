@@ -49,14 +49,11 @@ class Auth extends MY_Controller
 
 				$this->session->set_userdata($session);
 
-				//get activitylog
-				$ip = $this->getUserIpAddr();
-
 				$loginfo = array(
 					'username' => $data['user']->username,
 					'action' => 'LOGIN',
 					'action_table' => 'AUTH',
-					'action_detail' => 'Successfully Login ' . $ip,
+					'action_detail' => 'Successfully Login ',
 				);
 				$logtable = 'activitylog';
 				$this->DatabaseModel->insert_data($loginfo, $logtable);
@@ -112,14 +109,11 @@ class Auth extends MY_Controller
 	public function logout()
 	{
 
-		//get activitylog
-		$ip = $this->getUserIpAddr();
-
 		$loginfo = array(
 			'username' => $this->session->userdata('username'),
 			'action' => 'LOGOUT',
 			'action_table' => 'AUTH',
-			'action_detail' => 'Successfully Logout from ' . $ip,
+			'action_detail' => 'Successfully Logout',
 		);
 		$logtable = 'activitylog';
 		$this->DatabaseModel->insert_data($loginfo, $logtable);
@@ -127,19 +121,5 @@ class Auth extends MY_Controller
 		//destroy sess
 		$this->session->sess_destroy();
 		redirect('auth');
-	}
-
-	public function getUserIpAddr()
-	{
-		if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-			//ip from share internet
-			$ip = $_SERVER['HTTP_CLIENT_IP'];
-		} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-			//ip pass from proxy
-			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		} else {
-			$ip = $_SERVER['REMOTE_ADDR'];
-		}
-		return $ip;
 	}
 }

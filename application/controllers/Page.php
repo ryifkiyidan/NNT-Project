@@ -14,12 +14,6 @@ class Page extends MY_Controller
 	{
 		$data['curr_page'] = 'dashboard';
 
-		$crud = new grocery_CRUD();
-		$crud->set_table('company');
-		$crud->set_theme('tablestrap4');
-		$output = $crud->render();
-		$data['crud'] = get_object_vars($output);
-
 		$this->render_backend('dashboard', $data);
 	}
 
@@ -444,7 +438,6 @@ class Page extends MY_Controller
 	{
 		//get activitylog
 		$username = $this->session->userdata('username');
-		$ip = $this->_getUserIpAddr();
 		$currID = $this->curr_id->primary_key;
 
 		//ambil ID setelah insert/add/clone
@@ -460,27 +453,13 @@ class Page extends MY_Controller
 			'username' => $username,
 			'action' => $thisstate,
 			'action_table' => $thistable,
-			'action_detail' => 'Successfully ' . $thisstate . ' ' . $thistable . ' ID: ' . $currID . ' From: ' . $ip,
+			'action_detail' => 'Successfully ' . $thisstate . ' ' . $thistable . ' (ID: ' . $currID . ')',
 
 		);
 		$logtable = 'activitylog';
 		$this->DatabaseModel->insert_data($loginfo, $logtable);
 
 		return true;
-	}
-
-	public function _getUserIpAddr()
-	{
-		if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-			//ip from share internet
-			$ip = gethostbyname($_SERVER['HTTP_CLIENT_IP']);
-		} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-			//ip pass from proxy
-			$ip = gethostbyname($_SERVER['HTTP_X_FORWARDED_FOR']);
-		} else {
-			$ip = gethostbyname($_SERVER['REMOTE_ADDR']);
-		}
-		return $ip;
 	}
 
 	public function profile()
