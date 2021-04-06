@@ -75,7 +75,7 @@
 					<tr>
 						<th class="border-info border-start border-end border-bottom-0 text-center" scope="row"><?= $i++ ?>.</th>
 						<td class="border-info border-end border-bottom-0 text-center"><?= $od->Qty_Sent ?> PCS</td>
-						<td class="border-info border-end border-bottom-0"><?= $od->Name ?></td>
+						<td class="border-info border-end border-bottom-0"><?= $od->Name . ' ' . $od->Size ?></td>
 						<td class="border-info border-end border-bottom-0"></td>
 					</tr>
 				<?php endforeach; ?>
