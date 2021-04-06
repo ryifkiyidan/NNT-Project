@@ -1,7 +1,7 @@
 <!-- Outer Row -->
 <div class="row justify-content-center">
 
-    <div class="col-xl-10 col-lg-12 col-md-9">
+    <div class="col-xl-6 col-lg-12 col-md-9">
         <?php
         if ($this->session->flashdata('message')) {
             echo '<div class="alert alert-danger">' . $this->session->flashdata('message') . '</div>';
@@ -14,7 +14,8 @@
                     <div class="col-lg-12">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Admin Panel</h1>
+                                <span class="h4 text-gray-900 mb-4">ADMIN PANEL</span>
+                                <hr>
                             </div>
                             <form class="user" method="post" action="<?php echo base_url('index.php/auth/login'); ?>">
                                 <div class="form-group">
@@ -28,9 +29,6 @@
                                 </button>
                             </form>
                             <hr>
-                            <div class="text-center">
-                                <a class="small" href="register.html">Create an Account!</a>
-                            </div>
                         </div>
                     </div>
                 </div>
