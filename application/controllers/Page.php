@@ -54,6 +54,7 @@ class Page extends MY_Controller
 
 	public function cusreqsize()
 	{
+		$opt = $this->input->get('opt', TRUE);
 		$data['curr_page'] = 'cusreqsize';
 
 		$crud = new grocery_CRUD();
@@ -67,7 +68,9 @@ class Page extends MY_Controller
 
 		$crud->set_relation('ID_Company', 'company', 'Name');
 
-		$crud->columns('ID_Company', 'Name', 'Gender');
+		if ($opt !== NULL && $opt === 'show_less') {
+			$crud->columns('ID_Company', 'Name', 'Gender');
+		}
 
 		// Rules
 		$crud->required_fields(array('ID_Company', 'Name', 'Gender'));
@@ -83,6 +86,7 @@ class Page extends MY_Controller
 		$output = $crud->render();
 		$data['crud'] = get_object_vars($output);
 		$data['state'] = $crud->getState();
+		$data['opt'] = $opt;
 
 		$this->render_backend('crud_view', $data);
 	}
