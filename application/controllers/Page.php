@@ -82,6 +82,7 @@ class Page extends MY_Controller
 
 		$output = $crud->render();
 		$data['crud'] = get_object_vars($output);
+		$data['state'] = $crud->getState();
 
 		$this->render_backend('crud_view', $data);
 	}
