@@ -38,9 +38,14 @@ endif;
 ?>
 
 <div class="container-fluid mb-5 pb-5">
-	<?php if ($curr_page === 'cusreqsize' && isset($state) && $state === 'list') : ?>
+	<?php if ($curr_page === 'cusreqsize' && isset($state) && $state === 'list' && $opt === null || $opt !== 'show_less') : ?>
 		<div class="mb-3 text-right">
-			<a href="button" class="btn btn-outline-primary"><i class="fad fa-search-plus"></i> Show All</a>
+			<a href="?opt=show_less" class="btn btn-outline-primary"><i class="fad fa-search-minus"></i> Show Less</a>
+		</div>
+	<?php endif; ?>
+	<?php if ($curr_page === 'cusreqsize' && isset($state) && $state === 'list' && $opt !== null && $opt !== 'show_all') : ?>
+		<div class="mb-3 text-right">
+			<a href="?opt=show_all" class="btn btn-outline-primary"><i class="fad fa-search-plus"></i> Show All</a>
 		</div>
 	<?php endif; ?>
 	<?php if ($curr_page === 'activitylog') : ?>
