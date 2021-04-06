@@ -38,6 +38,10 @@ class Page extends MY_Controller
 		$crud->columns('Name', 'Location', 'Phone_Number', 'Fax_Number');
 		$crud->required_fields(array('Name', 'Location', 'Phone_Number'));
 
+		//unset crud func
+		$crud->unset_export();
+		$crud->unset_print();
+
 		// Callbacks
 		$this->crud_state = $crud->getState();
 
@@ -74,6 +78,10 @@ class Page extends MY_Controller
 		// Rules
 		$crud->required_fields(array('ID_Company', 'Name', 'Gender'));
 
+		//unset crud func
+		$crud->unset_export();
+		$crud->unset_print();
+
 		// Callbacks
 		$this->crud_state = $crud->getState();
 
@@ -98,6 +106,10 @@ class Page extends MY_Controller
 		$this->curr_table = 'fabric';
 		$crud->set_table('fabric');
 		$crud->set_subject('Fabric');
+
+		//unset crud func
+		$crud->unset_export();
+		$crud->unset_print();
 
 		// Rules
 		$crud->required_fields(array('Name', 'Price'));
@@ -133,6 +145,10 @@ class Page extends MY_Controller
 
 		// Rules
 		$crud->required_fields(array('ID_Company', 'ID_Fabric', 'Name', 'Price'));
+
+		//unset crud func
+		$crud->unset_export();
+		$crud->unset_print();
 
 		// Callbacks
 		$this->crud_state = $crud->getState();
@@ -175,6 +191,10 @@ class Page extends MY_Controller
 		// Rules
 		$crud->unique_fields('PO_Number');
 		$crud->required_fields(array('PO_Number', 'ID_Company', 'Date', 'Delivered_Schedule'));
+
+		//unset crud func
+		$crud->unset_export();
+		$crud->unset_print();
 
 		// Callbacks
 		$crud->callback_column('Status', function ($value, $row) {
@@ -291,6 +311,10 @@ class Page extends MY_Controller
 		$crud->unique_fields(array('ID', 'DO_Number'));
 		$crud->required_fields(array('DO_Number', 'ID_PurchaseOrder', 'Date'));
 
+		//unset crud func
+		$crud->unset_export();
+		$crud->unset_print();
+
 		// Callbacks
 		$this->crud_state = $crud->getState();
 		$crud->callback_column('Company_Name', function ($value, $row) {
@@ -406,6 +430,8 @@ class Page extends MY_Controller
 		$crud->order_by('action_time', 'desc');
 		$crud->unset_add();
 		$crud->unset_edit();
+		$crud->unset_export();
+		$crud->unset_print();
 
 		$output = $crud->render();
 		$data['crud'] = get_object_vars($output);
