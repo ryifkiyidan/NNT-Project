@@ -13,7 +13,10 @@ class Page extends MY_Controller
 	public function dashboard()
 	{
 		$data['curr_page'] = 'dashboard';
-
+		$data['totalCompany'] = $this->DatabaseModel->getCount('Company');
+		$data['totalProduct'] = $this->DatabaseModel->getCount('Product');
+		$data['totalPending'] = $this->DatabaseModel->getPending();
+		$data['totalEarning'] = $this->DatabaseModel->getEarning();
 		$this->render_backend('dashboard', $data);
 	}
 

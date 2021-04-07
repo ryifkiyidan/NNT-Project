@@ -63,6 +63,35 @@ class DatabaseModel extends CI_Model
 		}
 	}
 
+	public function getCount($table)
+	{
+		$data = $this->db->get($table)->num_rows();
+		return $data;
+	}
+
+	public function getPending()
+	{
+		$data = $this->db
+			->select('*')
+			->from('purchaseorder as po')
+			->join('orderdetail as od', 'po.ID = od.ID_PurchaseOrder', 'left')
+			->where('od.Qty_Sent < od.Qty_Order')
+			->get()->num_rows();
+		return $data;
+	}
+
+	public function getEarning()
+	{
+		$data = $this->db
+			->select('SUM(pd.Price * od.Qty_Order) as Total')
+			->from('purchaseorder as po')
+			->join('orderdetail as od', 'po.ID = od.ID_PurchaseOrder', 'left')
+			->join('product as pd', 'pd.ID = od.ID_Product', 'left')
+			->where('od.Qty_Sent = od.Qty_Order')
+			->get()->row();
+		return $data;
+	}
+
 	public function update_data($where, $data, $table)
 	{
 		$this->db->where($where);
