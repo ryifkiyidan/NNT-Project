@@ -232,10 +232,10 @@ class Page extends MY_Controller
 		$crud->display_as('ID_Product', 'Product Name');
 		$crud->display_as('ID_PurchaseOrder', 'PO_Number');
 
-		$crud->set_relation('ID_Product', 'product', 'Name');
+		$crud->set_relation('ID_Product', 'product', '{Name} - {Size}');
 		$crud->set_relation('ID_PurchaseOrder', 'purchaseorder', 'PO_Number');
 
-		$crud->columns('ID_Product', 'Size', 'Unit_Price', 'Qty_Order', 'Amount');
+		$crud->columns('ID_Product', 'Unit_Price', 'Qty_Order', 'Amount');
 
 		$crud->where('ID_PurchaseOrder', $id);
 
@@ -255,9 +255,6 @@ class Page extends MY_Controller
 		$crud->callback_edit_field('ID_PurchaseOrder', function () {
 			$po = $this->DatabaseModel->getPO($this->id);
 			return '<select id="field-ID_PurchaseOrder" class="form-control" name="ID_PurchaseOrder" data-placeholder="Select PO Number" readonly><option value="' . $this->id . '">' . $po->PO_Number . '</option></select>';
-		});
-		$crud->callback_column('Size', function ($row, $value) {
-			return $this->DatabaseModel->getData('product', array('ID' => $value->ID_Product))->Size;
 		});
 		$crud->callback_column('Unit_Price', function ($row, $value) {
 			return 'Rp. ' . $this->DatabaseModel->getData('product', array('ID' => $value->ID_Product))->Price;
@@ -356,9 +353,9 @@ class Page extends MY_Controller
 
 		$crud->display_as('ID_Product', 'Product Name');
 
-		$crud->set_relation('ID_Product', 'product', 'Name');
+		$crud->set_relation('ID_Product', 'product', '{Name} - {Size}');
 
-		$crud->columns('ID_Product', 'Size', 'Qty_Order', 'Qty_Sent', 'Status');
+		$crud->columns('ID_Product', 'Qty_Order', 'Qty_Sent', 'Status');
 
 		$crud->where('ID_PurchaseOrder', $do->ID_PurchaseOrder);
 
@@ -384,9 +381,6 @@ class Page extends MY_Controller
 				return 'Delivered';
 			}
 			return 'Pending';
-		});
-		$crud->callback_column('Size', function ($row, $value) {
-			return $this->DatabaseModel->getData('product', array('ID' => $value->ID_Product))->Size;
 		});
 
 		//callback get activitylog
