@@ -12,7 +12,7 @@
 						<div class="col mr-2">
 							<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
 								Earnings</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800">Rp. <?= $totalEarning->Total ?></div>
+							<div class="h5 mb-0 font-weight-bold text-gray-800">Rp<?= number_format($totalEarning->Total, 2, ',', '.'); ?></div>
 						</div>
 						<div class="col-auto">
 							<i class="fad fa-dollar-sign fa-2x text-gray-300"></i>
