@@ -17,7 +17,7 @@
                                 <span class="h4 text-gray-900 mb-4">ADMIN PANEL</span>
                                 <hr>
                             </div>
-                            <form class="user" method="post" action="<?php echo base_url('index.php/auth/login'); ?>">
+                            <form class="user" method="post" action="<?= base_url('index.php/auth/login'); ?>">
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" name="username" aria-describedby="emailHelp" placeholder="Username">
                                 </div>

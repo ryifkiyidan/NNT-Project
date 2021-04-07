@@ -1,33 +1,3 @@
-<!-- <div class="container-fluid p-0">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="<?php echo base_url('index.php/page/dashboard'); ?>"><i class="fad fa-head-side-virus fa-2x"></i> V-Learning</a>
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div id="navbar" class="collapse navbar-collapse">
-            <div class="navbar-nav">
-
-                <a class="nav-item nav-link" href="<?php echo base_url('index.php/page/dashboard'); ?>" id = "nav-dashboard" >Dashboard</a>
-            
-                <?php
-
-				?>
-            
-                <a class="nav-item nav-link" href="<?php echo base_url('index.php/page/lesson'); ?>" id = "nav-lesson" >Lesson</a>
-                <a class="nav-item nav-link" href="<?php echo base_url('index.php/page/quiz'); ?>" id = "nav-quiz" >Quiz</a>
-                <a class="nav-item nav-link" href="<?php echo base_url('index.php/page/profile'); ?>" id = "nav-profile" >Profile</a>
-            
-            </div>
-            
-            <div class="navbar-nav ml-auto">
-                <a class="nav-item nav-link" href="<?php echo base_url('index.php/auth/logout'); ?>" id = "nav-logout" >Logout</a>
-            </div>
-
-        </div>
-        
-    </nav>
-</div> -->
-
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
