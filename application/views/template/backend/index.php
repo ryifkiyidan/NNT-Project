@@ -28,6 +28,9 @@
 	<!-- Custom styles for this template-->
 	<link href="<?= base_url('assets/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
 
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/png" href="<?= base_url('assets/'); ?>img/nnt_logo.png" sizes="16x16" />
+
 </head>
 
 <body id="page-top">
@@ -63,12 +66,13 @@
 	<!-- Custom scripts for all pages-->
 	<script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 
-	<!-- Page level plugins -->
-	<script src="<?= base_url('assets/'); ?>vendor/chart.js/Chart.min.js"></script>
-
-	<!-- Page level custom scripts -->
-	<script src="<?= base_url('assets/'); ?>js/demo/chart-area-demo.js"></script>
-	<script src="<?= base_url('assets/'); ?>js/demo/chart-pie-demo.js"></script>
+	<?php if ($curr_page === 'dashboard') : ?>
+		<!-- Page level plugins -->
+		<script src="<?= base_url('assets/'); ?>vendor/chart.js/Chart.min.js"></script>
+		<!-- Page level custom scripts -->
+		<script src="<?= base_url('assets/'); ?>js/demo/chart-area-demo.js"></script>
+		<script src="<?= base_url('assets/'); ?>js/demo/chart-pie-demo.js"></script>
+	<?php endif; ?>
 	<script src="<?= base_url('assets/'); ?>js/fontawesome.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
