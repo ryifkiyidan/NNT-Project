@@ -38,42 +38,42 @@
 	<li class="nav-item" id="nav-company">
 		<a class="nav-link" href="<?= base_url('index.php/page/company'); ?>">
 			<i class="fas fa-fw fa-building"></i>
-			<span>Perusahaan</span></a>
+			<span>Company</span></a>
 	</li>
 
 	<!-- Nav Item CusReqSize -->
 	<li class="nav-item" id="nav-cusreqsize">
 		<a class="nav-link" href="<?= base_url('index.php/page/cusreqsize'); ?>">
 			<i class="fas fa-fw fa-ruler-triangle"></i>
-			<span>Pengukuran</span></a>
+			<span>Measurement</span></a>
 	</li>
 
 	<!-- Nav Item Fabric -->
 	<li class="nav-item" id="nav-fabric">
 		<a class="nav-link" href="<?= base_url('index.php/page/fabric'); ?>">
 			<i class="fas fa-fw fa-scroll"></i>
-			<span>Bahan Kain</span></a>
+			<span>Fabric</span></a>
 	</li>
 
 	<!-- Nav Item Product -->
 	<li class="nav-item" id="nav-product">
 		<a class="nav-link" href="<?= base_url('index.php/page/product'); ?>">
 			<i class="fas fa-fw fa-tshirt"></i>
-			<span>Produk</span></a>
+			<span>Product</span></a>
 	</li>
 
 	<!-- Nav Item PurchaseOrder -->
 	<li class="nav-item" id="nav-purchaseorder">
 		<a class="nav-link" href="<?= base_url('index.php/page/purchaseorder'); ?>">
 			<i class="fas fa-fw fa-shopping-basket"></i>
-			<span>Pesanan Pembelian</span></a>
+			<span>Purchase Order</span></a>
 	</li>
 
 	<!-- Nav Item Delivery Order -->
 	<li class="nav-item" id="nav-deliveryorder">
 		<a class="nav-link" href="<?= base_url('index.php/page/deliveryorder'); ?>">
 			<i class="fas fa-fw fa-truck"></i>
-			<span>Surat Jalan</span></a>
+			<span>Delivery Order</span></a>
 	</li>
 
 	<!-- Divider -->

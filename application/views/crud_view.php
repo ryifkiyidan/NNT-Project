@@ -38,18 +38,25 @@ endif;
 ?>
 
 <div class="container-fluid mb-5 pb-5">
+	<?php
+	$title = match ($curr_page) {
+		'activitylog' => 'Activity Log',
+		'cusreqsize' => 'Measurement',
+		'purchaseorder' => 'Purchase Order',
+		'deliveryorder' => 'Delivery Order',
+		default => ucfirst($curr_page),
+	};
+	?>
+	<h2 class="text-center"><?= $title; ?></h2>
 	<?php if ($curr_page === 'cusreqsize') : ?>
 		<?php if ($state === 'list') : ?>
-			<div class="mb-3 text-right">
-				<a href="?opt=<?= $opt === null || $opt !== 'show_less' ? 'show_less' : 'show_all'; ?>" class="btn btn-outline-primary">
+			<div class="float-right">
+				<a href="?opt=<?= $opt === null || $opt !== 'show_less' ? 'show_less' : 'show_all'; ?>" role="button" class="add_button btn btn-light">
 					<i class="fad fa-search-<?= $opt === null || $opt !== 'show_less' ? 'minus' : 'plus'; ?>"></i>
 					<?= $opt === null || $opt !== 'show_less' ? 'Show Less' : 'Show All'; ?>
 				</a>
 			</div>
 		<?php endif; ?>
-	<?php endif; ?>
-	<?php if ($curr_page === 'activitylog') : ?>
-		<h1><?= 'Activity Log'; ?></h1>
 	<?php endif; ?>
 	<?= $crud['output']; ?>
 </div>

@@ -7,8 +7,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-
-	<title>NNT Admin</title>
+	<?php
+	$title = match ($curr_page) {
+		'activitylog' => 'Activity Log',
+		'cusreqsize' => 'Measurement',
+		'purchaseorder' => 'Purchase Order',
+		'deliveryorder' => 'Delivery Order',
+		default => ucfirst($curr_page),
+	};
+	?>
+	<title><?= $title; ?> | PT. Nanang Nusantara Tritama</title>
 
 	<?php if ($curr_page === 'profile' || $curr_page === 'dashboard') : ?>
 		<script src="<?= base_url('assets/'); ?>js/jquery.js"></script>
