@@ -109,13 +109,13 @@ class DatabaseModel extends CI_Model
 	public function getProjects()
 	{
 		$data = $this->db
-			->select('MONTHNAME(po.Date) as Label, SUM(pd.Price * od.Qty_Order) as Total')
+			->select('CONCAT(po.PO_Number, " - ", co.Name) as Label, ((od.Qty_Sent / od.Qty_Order)*100) as Percentage')
 			->from('purchaseorder as po')
 			->join('orderdetail as od', 'po.ID = od.ID_PurchaseOrder')
-			->join('product as pd', 'pd.ID = od.ID_Product')
-			->where('od.Qty_Sent = od.Qty_Order')
-			->group_by('YEAR(po.Date)')
-			->group_by('MONTH(po.Date)')
+			->join('company as co', 'co.ID = po.ID_Company')
+			->group_by('po.PO_Number')
+			->limit(5)
+			->order_by('po.Date', 'ASC')
 			->get()->result();
 		return $data;
 	}
