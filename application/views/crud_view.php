@@ -58,5 +58,15 @@ endif;
 			</div>
 		<?php endif; ?>
 	<?php endif; ?>
+	<?php if ($curr_page === 'detail_do') : ?>
+		<?php if ($state === 'list') : ?>
+			<div class="float-left">
+				<a href="<?= base_url('index.php/page/add_do/' . $id); ?>" class="add_button btn btn-light">
+					<i class="fas fa-plus"></i>
+					Add Order Detail
+				</a>
+			</div>
+		<?php endif; ?>
+	<?php endif; ?>
 	<?= $crud['output']; ?>
 </div>

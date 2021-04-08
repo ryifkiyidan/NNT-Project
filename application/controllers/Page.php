@@ -334,10 +334,13 @@ class Page extends MY_Controller
 
 	public function detail_do($id)
 	{
-		$data['curr_page'] = 'deliveryorder';
+		$data['curr_page'] = 'detail_do';
+		$data['id'] = $id;
+		$this->id_deliveryOrder = $id;
 
 		$do = $this->DatabaseModel->getData('deliveryorder', array('ID' => $id));
 		$po = $this->DatabaseModel->getPO($do->ID_PurchaseOrder);
+		$relation = $this->DatabaseModel->getDatas('relation_od_do', array('ID_DeliveryOrder' => $id));
 		$do->Name = $po->Name;
 
 		$crud = new grocery_CRUD();
@@ -362,8 +365,15 @@ class Page extends MY_Controller
 
 		$crud->columns('ID_Product', 'Qty_Order', 'Qty_Sent', 'Status');
 
-		$crud->where('ID_PurchaseOrder', $do->ID_PurchaseOrder);
+		if (empty($relation)) {
+			$crud->where('orderdetail.ID', '0');
+		} else {
+			foreach ($relation as $r) {
+				$crud->or_where('orderdetail.ID', $r->ID_OrderDetail);
+			}
+		}
 
+		$crud->unset_add();
 		$crud->unset_read();
 		$crud->unset_edit_fields('Qty_Order', 'ID', 'ID_PurchaseOrder');
 		$crud->field_type('ID_Product', 'readonly');
@@ -386,6 +396,7 @@ class Page extends MY_Controller
 			}
 			return 'Pending';
 		});
+		$crud->callback_delete(array($this, '_delete_relation'));
 
 		//callback get activitylog
 		$this->curr_id = $crud->getStateInfo();
@@ -402,11 +413,22 @@ class Page extends MY_Controller
 
 	public function add_do($id)
 	{
-		$data['curr_page'] = 'deliveryorder';
-
+		$data['curr_page'] = 'add_do';
+		// $id itu adalah ID Delivery Order
 		$data['datasets'] = $this->DatabaseModel->getDatasetsDO($id);
 		$data['curr_state'] = 'add';
+		$data['id'] = $id;
 		$this->render_backend('delivery_order/add', $data);
+	}
+
+	public function form_add_do($id_deliveryOrder)
+	{
+		$id_orderDetail = $this->input->post('checkbox');
+		foreach ($id_orderDetail as $id) {
+			$data = array('ID_DeliveryOrder' => $id_deliveryOrder, 'ID_OrderDetail' => $id);
+			$this->DatabaseModel->insert_data($data, 'relation_od_do');
+		}
+		redirect('page/detail_do/' . $id_deliveryOrder);
 	}
 
 	public function print_do($id)
@@ -444,6 +466,10 @@ class Page extends MY_Controller
 		$this->render_backend('crud_view', $data);
 	}
 
+	public function _delete_relation($primary_key)
+	{
+		return $this->DatabaseModel->deleteRelation($this->id_deliveryOrder, $primary_key);
+	}
 
 	public function _getUserLog($post_array = null, $primary_key = null)
 	{

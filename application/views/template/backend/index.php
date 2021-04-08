@@ -18,7 +18,7 @@
 	?>
 	<title><?= $title; ?> | PT. Nanang Nusantara Tritama</title>
 
-	<?php if ($curr_page === 'profile' || $curr_page === 'dashboard') : ?>
+	<?php if ($curr_page === 'profile' || $curr_page === 'dashboard' || $curr_page === 'add_do') : ?>
 		<script src="<?= base_url('assets/'); ?>js/jquery.js"></script>
 	<?php endif; ?>
 	<!-- Custom fonts for this template-->
@@ -31,9 +31,9 @@
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/png" href="<?= base_url('assets/'); ?>img/nnt_logo.png" sizes="16x16" />
 
-	<?php if ($curr_page === 'deliveryorder' && isset($curr_state) && $curr_state === 'add') : ?>
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+	<?php if ($curr_page === 'add_do') : ?>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.css" />
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.js"></script>
 	<?php endif; ?>
 
 </head>
