@@ -50,6 +50,19 @@ class DatabaseModel extends CI_Model
 		return $data;
 	}
 
+	public function getDatasetsDO($id)
+	{
+		$data = $this->db
+			->select('od.ID as ID, CONCAT(p.Name," - ",p.Size) as Name, od.Qty_Order as Qty_Order, od.Qty_Sent as Qty_Sent')
+			->from('deliveryorder as do')
+			->join('relation_od_do as r', 'do.ID = r.ID_DeliveryOrder')
+			->join('orderdetail as od', 'od.ID = r.ID_OrderDetail')
+			->join('product as p', 'p.ID = od.ID_Product')
+			->where("$id = od.ID_PurchaseOrder")
+			->get()->result();
+		return $data;
+	}
+
 	public function getLastId($table)
 	{
 		$this->db->select('ID');

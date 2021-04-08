@@ -348,6 +348,8 @@ class Page extends MY_Controller
 
 		if ($state === 'print') {
 			redirect('page/print_do/' . $id);
+		} else if ($state === 'add') {
+			redirect('page/add_do/' . $id);
 		}
 
 		$this->curr_table = 'orderdetail';
@@ -362,7 +364,6 @@ class Page extends MY_Controller
 
 		$crud->where('ID_PurchaseOrder', $do->ID_PurchaseOrder);
 
-		$crud->unset_add();
 		$crud->unset_read();
 		$crud->unset_edit_fields('Qty_Order', 'ID', 'ID_PurchaseOrder');
 		$crud->field_type('ID_Product', 'readonly');
@@ -397,6 +398,14 @@ class Page extends MY_Controller
 		$data['state'] = $crud->getState();
 
 		$this->render_backend('crud_view', $data);
+	}
+
+	public function add_do($id)
+	{
+		$data['curr_page'] = 'deliveryorder';
+
+		$data['datasets'] = $this->DatabaseModel->getDatasetsDO($id);
+		$this->render_backend('delivery_order/add', $data);
 	}
 
 	public function print_do($id)
