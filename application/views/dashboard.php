@@ -126,9 +126,9 @@
 					$colorProject = ['bg-danger', 'bg-warning', 'bg-primary', 'bg-info', 'bg-success'];
 					?>
 					<?php foreach ($project as $key => $value) : ?>
-						<h4 class="small font-weight-bold"><?= $value->Label; ?> <span class="float-right"><?= intval($value->Percentage) === 100 ? 'Complete!' : intval($value->Percentage) . '%'; ?></span></h4>
+						<h4 class="small font-weight-bold"><?= $value->Label; ?> <span class="float-right"><?= $value->Percentage == 100 ? 'Complete!' : $value->Percentage . '%'; ?></span></h4>
 						<div class="progress mb-4">
-							<div class="progress-bar <?= $colorProject[$i++]; ?>" role="progressbar" style="width: <?= intval($value->Percentage) ?>%" aria-valuenow="<?= intval($value->Percentage) ?>" aria-valuemin="0" aria-valuemax="100"></div>
+							<div class="progress-bar <?= $colorProject[$i++]; ?>" role="progressbar" style="width: <?= $value->Percentage ?>%" aria-valuenow="<?= $value->Percentage ?>" aria-valuemin="0" aria-valuemax="100"></div>
 						</div>
 					<?php endforeach; ?>
 				</div>

@@ -109,7 +109,7 @@ class DatabaseModel extends CI_Model
 	public function getProjects()
 	{
 		$data = $this->db
-			->select('CONCAT(po.PO_Number, " - ", co.Name) as Label, ((od.Qty_Sent / od.Qty_Order)*100) as Percentage')
+			->select('CONCAT(po.PO_Number, " - ", co.Name) as Label, CAST(((od.Qty_Sent / od.Qty_Order)*100) AS int) as Percentage')
 			->from('purchaseorder as po')
 			->join('orderdetail as od', 'po.ID = od.ID_PurchaseOrder')
 			->join('company as co', 'co.ID = po.ID_Company')
