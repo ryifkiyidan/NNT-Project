@@ -44,6 +44,8 @@ endif;
 		'cusreqsize' => 'Measurement',
 		'purchaseorder' => 'Purchase Order',
 		'deliveryorder' => 'Delivery Order',
+		'detail_po' => 'Order Detail',
+		'detail_do' => 'Order Detail',
 		default => ucfirst($curr_page),
 	};
 	?>

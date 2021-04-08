@@ -222,7 +222,7 @@ class Page extends MY_Controller
 
 	public function detail_po($id)
 	{
-		$data['curr_page'] = 'purchaseorder';
+		$data['curr_page'] = 'detail_po';
 
 
 		$crud = new grocery_CRUD();

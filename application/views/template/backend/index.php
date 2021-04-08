@@ -81,7 +81,13 @@
 	<script src="<?= base_url('assets/'); ?>js/fontawesome.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$("#nav-<?= $curr_page; ?>").addClass('active');
+			var curr_page = "#nav-" + "<?= match ($curr_page) {
+											'detail_po' => 'purchaseorder',
+											'detail_do' => 'deliveryorder',
+											'add_do' => 'deliveryorder',
+											default => $curr_page,
+										}; ?>";
+			$(curr_page).addClass('active');
 		});
 	</script>
 </body>
