@@ -17,6 +17,7 @@ class Page extends MY_Controller
 		$data['totalProduct'] = $this->DatabaseModel->getCount('Product');
 		$data['totalPending'] = $this->DatabaseModel->getPending();
 		$data['totalEarning'] = $this->DatabaseModel->getEarning();
+		$data['earningOverview'] = $this->DatabaseModel->getEarningOverview();
 		$this->render_backend('dashboard', $data);
 	}
 

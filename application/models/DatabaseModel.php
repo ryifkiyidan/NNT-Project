@@ -92,6 +92,20 @@ class DatabaseModel extends CI_Model
 		return $data;
 	}
 
+	public function getEarningOverview()
+	{
+		$data = $this->db
+			->select('MONTHNAME(po.Date) as Label, SUM(pd.Price * od.Qty_Order) as Total')
+			->from('purchaseorder as po')
+			->join('orderdetail as od', 'po.ID = od.ID_PurchaseOrder', 'left')
+			->join('product as pd', 'pd.ID = od.ID_Product', 'left')
+			->where('od.Qty_Sent = od.Qty_Order')
+			->group_by('YEAR(po.Date)')
+			->group_by('MONTH(po.Date)')
+			->get()->result();
+		return $data;
+	}
+
 	public function update_data($where, $data, $table)
 	{
 		$this->db->where($where);
