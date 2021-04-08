@@ -19,6 +19,7 @@ class Page extends MY_Controller
 		$data['totalEarning'] = $this->DatabaseModel->getEarning();
 		$data['earningOverview'] = $this->DatabaseModel->getEarningOverview();
 		$data['project'] = $this->DatabaseModel->getProjects();
+		$data['fabricUsed'] = $this->DatabaseModel->getFabricUsed();
 		$this->render_backend('dashboard', $data);
 	}
 

@@ -120,6 +120,19 @@ class DatabaseModel extends CI_Model
 		return $data;
 	}
 
+	public function getFabricUsed()
+	{
+		$data = $this->db
+			->select('f.Name as Label, COUNT(p.ID_Fabric) as Total')
+			->from('product as p')
+			->join('fabric as f', 'p.ID_Fabric = f.ID')
+			->group_by('f.Name')
+			->limit(3)
+			->order_by('Total', 'DESC')
+			->get()->result();
+		return $data;
+	}
+
 	public function update_data($where, $data, $table)
 	{
 		$this->db->where($where);

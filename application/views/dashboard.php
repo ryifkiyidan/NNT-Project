@@ -140,19 +140,7 @@
 			<div class="card shadow mb-4">
 				<!-- Card Header - Dropdown -->
 				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-					<div class="dropdown no-arrow">
-						<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-						</a>
-						<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-							<div class="dropdown-header">Dropdown Header:</div>
-							<a class="dropdown-item" href="#">Action</a>
-							<a class="dropdown-item" href="#">Another action</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Something else here</a>
-						</div>
-					</div>
+					<h6 class="m-0 font-weight-bold text-primary">Fabric Used</h6>
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
@@ -160,15 +148,15 @@
 						<canvas id="myPieChart"></canvas>
 					</div>
 					<div class="mt-4 text-center small">
-						<span class="mr-2">
-							<i class="fas fa-circle text-primary"></i> Direct
-						</span>
-						<span class="mr-2">
-							<i class="fas fa-circle text-success"></i> Social
-						</span>
-						<span class="mr-2">
-							<i class="fas fa-circle text-info"></i> Referral
-						</span>
+						<?php
+						$i = 0;
+						$colorPie = ['text-primary', 'text-info', 'text-success'];
+						?>
+						<?php foreach ($fabricUsed as $key => $value) : ?>
+							<span class="mr-2">
+								<i class="fas fa-circle <?= $colorPie[$i++]; ?>"></i> <?= $value->Label ?>
+							</span>
+						<?php endforeach; ?>
 					</div>
 				</div>
 			</div>
@@ -202,6 +190,20 @@
 			data: dataEarning,
 		}],
 	};
-
-	// Project - BarChart
+	// Fabric Used - PieChart
+	var dataFabric = [];
+	var labelFabric = [];
+	<?php foreach ($fabricUsed as $key => $value) : ?>
+		dataFabric.push(<?= $value->Total; ?>);
+		labelFabric.push('<?= $value->Label; ?>');
+	<?php endforeach ?>
+	var dataPieChart = {
+		labels: labelFabric,
+		datasets: [{
+			data: dataFabric,
+			backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+			hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+			hoverBorderColor: "rgba(234, 236, 244, 1)",
+		}],
+	};
 </script>
