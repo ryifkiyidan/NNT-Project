@@ -32,7 +32,7 @@
 
 			<div class="tab-content py-3">
 				<div class="tab-pane container active" id="profile">
-					<form method="post" action="<?= base_url('page/form_profile'); ?>">
+					<form method="post" action="<?= base_url('index.php/page/form_profile'); ?>">
 
 						<!-- Name -->
 						<div class="row">
@@ -65,7 +65,7 @@
 					</form>
 				</div>
 				<div class="tab-pane container fade" id="account">
-					<form method="post" action="<?= base_url('page/form_account'); ?>">
+					<form method="post" action="<?= base_url('index.php/page/form_account'); ?>">
 
 						<!-- Username -->
 						<div class="row">
