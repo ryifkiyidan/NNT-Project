@@ -405,6 +405,7 @@ class Page extends MY_Controller
 		$data['curr_page'] = 'deliveryorder';
 
 		$data['datasets'] = $this->DatabaseModel->getDatasetsDO($id);
+		$data['curr_state'] = 'add';
 		$this->render_backend('delivery_order/add', $data);
 	}
 
