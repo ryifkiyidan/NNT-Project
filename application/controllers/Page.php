@@ -204,9 +204,11 @@ class Page extends MY_Controller
 			foreach ($ods as $od) {
 				if ($od->Qty_Sent < $od->Qty_Order) {
 					return 'Pending';
+				} else if ($od->Qty_Sent == $od->Qty_Order) {
+					return 'Delivered';
 				}
 			}
-			return 'Delivered';
+			return ' - ';
 		});
 		//callback get activitylog
 		$this->crud_state = $crud->getState();
