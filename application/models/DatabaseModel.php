@@ -115,7 +115,7 @@ class DatabaseModel extends CI_Model
 			->join('company as co', 'co.ID = po.ID_Company')
 			->group_by('po.PO_Number')
 			->limit(5)
-			->order_by('po.Date', 'ASC')
+			->order_by('po.Date', 'DESC')
 			->get()->result();
 		return $data;
 	}
