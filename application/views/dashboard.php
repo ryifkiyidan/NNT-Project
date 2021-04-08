@@ -104,7 +104,7 @@
 		<div class="col-xl-7 col-lg-6 mb-4">
 
 			<!-- Project Card Example -->
-			<div class="card shadow mb-4">
+			<div class="card shadow mb-4" style="min-height: 395px;">
 				<div class="card-header py-3">
 					<h6 class="m-0 font-weight-bold text-primary">Projects</h6>
 				</div>
