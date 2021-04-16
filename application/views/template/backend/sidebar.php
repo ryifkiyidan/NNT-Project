@@ -31,7 +31,7 @@
 
 	<!-- Heading -->
 	<div class="sidebar-heading">
-		List
+		Menu List
 	</div>
 
 	<!-- Nav Item Company -->
