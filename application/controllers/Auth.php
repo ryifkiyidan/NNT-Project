@@ -8,12 +8,60 @@ class Auth extends MY_Controller
 		$this->load->model('UserModel');
 		$this->load->model('DatabaseModel');
 	}
+
 	public function index()
 	{
 		if ($this->session->userdata('authenticated'))
 			redirect('page/dashboard');
 
 		$this->render_login('login');
+	}
+
+	public function register_page()
+	{
+		if ($this->session->userdata('authenticated'))
+			redirect('page/dashboard');
+
+		$this->render_login('register');
+	}
+
+	public function register()
+	{
+		$first_name   = $this->input->post('first_name');
+		$last_name   = $this->input->post('last_name');
+		$username = $this->input->post('username');
+		$password = md5($this->input->post('password'));
+		$repeat_password = md5($this->input->post('repeat_password'));
+
+		$data     = $this->UserModel->get($username);
+		if (!empty($data['user'])) {
+			$this->session->set_tempdata('danger', 'Username sudah ada', 1);
+			redirect('auth/register_page');
+		}
+		if ($password !== $repeat_password) {
+			$this->session->set_tempdata('danger', 'Repeat Password salah', 1);
+			redirect('auth/register_page');
+		}
+		if (strlen($this->input->post('password')) < 6) {
+			$this->session->set_tempdata('danger', 'Password harus mengandung 5 atau lebih karakter', 1);
+			redirect('auth/register_page');
+		}
+
+		$data = array(
+			'first_name'      => $first_name,
+			'last_name'       => $last_name,
+			'username'        => $username,
+			'password'        => $password,
+			'role'			  => 'admin',
+		);
+
+		if ($this->UserModel->registerAccount($data)) {
+			$this->session->set_tempdata('success', 'Akun berhasil dibuat, Silahkan Login', 1);
+			redirect('auth');
+		} else {
+			$this->session->set_tempdata('success', 'Akun gagal dibuat, Silahkan Coba Beberapa Saat Lagi', 1);
+			redirect('auth');
+		}
 	}
 
 	public function login()
@@ -24,11 +72,11 @@ class Auth extends MY_Controller
 		$data     = $this->UserModel->get($username);
 
 		if (empty($data['user'])) {
-			$this->session->set_flashdata('message', 'Username tidak ditemukan');
+			$this->session->set_tempdata('danger', 'Username tidak ditemukan', 1);
 			redirect('auth');
 		} else {
 			if ($password != $data['user']->password) {
-				$this->session->set_flashdata('message', 'Password salah');
+				$this->session->set_tempdata('danger', 'Password salah', 1);
 				redirect('auth');
 			} else {
 				$session = array(

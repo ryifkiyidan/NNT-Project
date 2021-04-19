@@ -12,7 +12,7 @@
                                 <span class="h4 text-gray-900 mb-4">ADMIN PANEL</span>
                                 <hr>
                             </div>
-                            <form class="user" method="post" action="<?= base_url('index.php/auth/login'); ?>">
+                            <form class="user" method="post" action="<?= base_url('index.php/auth/register'); ?>">
                                 <?php
                                 if ($this->session->tempdata('danger')) {
                                     echo '<div class="alert alert-danger">' . $this->session->tempdata('danger') . '</div>';
@@ -20,19 +20,32 @@
                                     echo '<div class="alert alert-success">' . $this->session->tempdata('success') . '</div>';
                                 }
                                 ?>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" name="username" placeholder="Username">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" name="first_name" placeholder="First Name" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" name="last_name" placeholder="Last Name">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-user" name="password" placeholder="Password">
+                                    <input type="text" class="form-control form-control-user" name="username" placeholder="Username" required>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" class="form-control form-control-user" name="password" placeholder="Password" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control form-control-user" name="repeat_password" placeholder="Repeat Password" required>
+                                    </div>
                                 </div>
                                 <hr>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Login
+                                    Register
                                 </button>
                             </form>
                             <div class="text-center mt-3">
-                                <a href="<?= base_url('index.php/auth/register_page'); ?>">Dont have an account?</a>
+                                <a href="<?= base_url('index.php/auth'); ?>">Already have an account?</a>
                             </div>
                         </div>
                     </div>

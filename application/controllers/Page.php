@@ -108,10 +108,6 @@ class Page extends MY_Controller
 		$crud->set_table('fabric');
 		$crud->set_subject('Fabric');
 
-		//unset crud func
-		$crud->unset_export();
-		$crud->unset_print();
-
 		// Rules
 		$crud->required_fields(array('Name', 'Price'));
 
@@ -146,10 +142,6 @@ class Page extends MY_Controller
 
 		// Rules
 		$crud->required_fields(array('ID_Company', 'ID_Fabric', 'Name', 'Price'));
-
-		//unset crud func
-		$crud->unset_export();
-		$crud->unset_print();
 
 		// Callbacks
 		$this->crud_state = $crud->getState();
@@ -398,7 +390,7 @@ class Page extends MY_Controller
 			}
 			return 'Pending';
 		});
-		$crud->callback_delete(array($this, '_delete_relation'));
+		// $crud->callback_delete(array($this, '_delete_relation'));
 
 		//callback get activitylog
 		$this->curr_id = $crud->getStateInfo();
@@ -547,7 +539,7 @@ class Page extends MY_Controller
 
 		$this->session->set_userdata($session);
 
-		$this->session->set_flashdata('message', 'Profile has changed successfully');
+		$this->session->set_tempdata('message', 'Profile has changed successfully', 1);
 
 		redirect('page/profile');
 	}
@@ -566,7 +558,7 @@ class Page extends MY_Controller
 		$new_password = md5($this->input->post('new_password'));
 
 		if ($curr_password != $user['user']->password) {
-			$this->session->set_flashdata('error', 'Current password is wrong');
+			$this->session->set_tempdata('error', 'Current password is wrong', 1);
 			redirect('page/profile');
 		} else {
 
@@ -584,7 +576,7 @@ class Page extends MY_Controller
 
 			$this->UserModel->update_data($where, $data, $table);
 
-			$this->session->set_flashdata('message', 'Password has changed successfully');
+			$this->session->set_tempdata('message', 'Password has changed successfully', 1);
 
 			redirect('page/profile');
 		}

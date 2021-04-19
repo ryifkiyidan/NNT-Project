@@ -1,11 +1,11 @@
 <div class="container">
 
 	<?php
-	if ($this->session->flashdata('message')) { // Jika ada
-		echo '<div class="alert alert-success">' . $this->session->flashdata('message') . '</div>'; // Tampilkan pesannya
+	if ($this->session->tempdata('message')) { // Jika ada
+		echo '<div class="alert alert-success">' . $this->session->tempdata('message') . '</div>'; // Tampilkan pesannya
 	}
-	if ($this->session->flashdata('error')) { // Jika ada
-		echo '<div class="alert alert-danger">' . $this->session->flashdata('error') . '</div>'; // Tampilkan pesannya
+	if ($this->session->tempdata('error')) { // Jika ada
+		echo '<div class="alert alert-danger">' . $this->session->tempdata('error') . '</div>'; // Tampilkan pesannya
 	}
 	?>
 	<h1 class="text-center py-5"><i class="fad fa-id-card"></i> <?= strtoupper($curr_page); ?></h1>
