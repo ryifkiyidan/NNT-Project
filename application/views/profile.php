@@ -12,7 +12,7 @@
 	<div class="row">
 		<div class="col-sm-4 text-center mb-5">
 			<!-- <h3>Profile</h3> -->
-			<i class="fas fa-user-circle fa-10x" style="color:#AEC6CF;"></i>
+			<img class="rounded-circle" src="<?= base_url('assets/'); ?>img/undraw_profile.svg" width="200">
 			<div class="pt-5">
 				<h3><?= $user->first_name . " " . $user->last_name; ?></h3>
 				<span class="badge badge-success"><?= $user->role; ?></span>
