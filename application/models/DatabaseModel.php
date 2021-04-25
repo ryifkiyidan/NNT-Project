@@ -141,7 +141,7 @@ class DatabaseModel extends CI_Model
 			->from('product as p')
 			->join('fabric as f', 'p.ID_Fabric = f.ID')
 			->group_by('f.Name')
-			->limit(5)
+			->limit(4)
 			->order_by('Total', 'DESC')
 			->get()->result();
 		return $data;
