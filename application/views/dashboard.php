@@ -174,6 +174,8 @@
 		dataFabric.push(<?= $value->Total; ?>);
 		labelFabric.push('<?= $value->Label; ?>');
 	<?php endforeach ?>
+	console.log(dataFabric);
+	console.log(labelFabric);
 	var dataPieChart = {
 		labels: labelFabric,
 		datasets: [{
