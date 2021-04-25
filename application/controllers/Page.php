@@ -390,7 +390,7 @@ class Page extends MY_Controller
 			}
 			return 'Pending';
 		});
-		// $crud->callback_delete(array($this, '_delete_relation'));
+		$crud->callback_delete(array($this, '_delete_relation'));
 
 		//callback get activitylog
 		$this->curr_id = $crud->getStateInfo();
@@ -429,9 +429,9 @@ class Page extends MY_Controller
 	{
 		$data['curr_page'] = 'deliveryorder';
 
-		$do = $this->DatabaseModel->getData('deliveryorder', array('ID' => $id));
+		// $do = $this->DatabaseModel->getData('deliveryorder', array('ID' => $id));
 		$data['deliveryorder'] = $this->DatabaseModel->getDO($id);
-		$data['orderdetail'] = $this->DatabaseModel->getOrderDetail($do->ID_PurchaseOrder);
+		$data['orderdetail'] = $this->DatabaseModel->getOrderDetail($id);
 		$this->load->view('prints/delivery_order', $data);
 	}
 

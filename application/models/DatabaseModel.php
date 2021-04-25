@@ -39,12 +39,13 @@ class DatabaseModel extends CI_Model
 		return $data;
 	}
 
-	public function getOrderDetail($id)
+	public function getOrderDetail($id_deliveryOrder)
 	{
 		$data = $this->db
 			->select(array('P.Name', 'P.Size', 'O.Qty_Order', 'O.Qty_Sent'))
-			->from('orderdetail as O')
-			->where('O.ID_PurchaseOrder', $id)
+			->from('relation_od_do as R')
+			->where('R.ID_DeliveryOrder', $id_deliveryOrder)
+			->join('orderdetail as O', 'O.ID = R.ID_OrderDetail')
 			->join('product as P', 'P.ID = O.ID_Product')
 			->get()->result();
 		return $data;
