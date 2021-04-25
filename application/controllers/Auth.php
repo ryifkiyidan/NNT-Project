@@ -42,7 +42,7 @@ class Auth extends MY_Controller
 			$this->session->set_tempdata('danger', 'Repeat Password salah', 1);
 			redirect('auth/register_page');
 		}
-		if (strlen($this->input->post('password')) < 6) {
+		if (strlen($this->input->post('password')) < 5) {
 			$this->session->set_tempdata('danger', 'Password harus mengandung 5 atau lebih karakter', 1);
 			redirect('auth/register_page');
 		}
