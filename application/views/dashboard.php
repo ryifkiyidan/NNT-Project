@@ -135,17 +135,6 @@
 					<div class="chart-pie pt-4 pb-2">
 						<canvas id="myPieChart"></canvas>
 					</div>
-					<div class="mt-4 text-center small">
-						<?php
-						$i = 0;
-						$colorPie = ['text-primary', 'text-info', 'text-success'];
-						?>
-						<?php foreach ($fabricUsed as $key => $value) : ?>
-							<span class="mr-2">
-								<i class="fas fa-circle <?= $colorPie[$i++]; ?>"></i> <?= $value->Label ?>
-							</span>
-						<?php endforeach; ?>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -189,8 +178,8 @@
 		labels: labelFabric,
 		datasets: [{
 			data: dataFabric,
-			backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-			hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+			backgroundColor: ['#4e73df', '#1cc88a', '#e74a3b', '#f6c23e'],
+			hoverBackgroundColor: ['#2e59d9', '#17a673', '#ba3c30', '#d1a534'],
 			hoverBorderColor: "rgba(234, 236, 244, 1)",
 		}],
 	};
